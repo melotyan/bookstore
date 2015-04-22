@@ -22,7 +22,7 @@ public class User implements java.io.Serializable {
 	private String id;
 	private String password;
 	private String name;
-	private Integer phone;
+	private String phone;
 	private String address;
 	private Set<Cart> carts = new HashSet<Cart>(0);
 
@@ -39,7 +39,7 @@ public class User implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public User(String id, String password, String name, Integer phone,
+	public User(String id, String password, String name, String phone,
 			String address, Set<Cart> carts) {
 		this.id = id;
 		this.password = password;
@@ -79,11 +79,11 @@ public class User implements java.io.Serializable {
 	}
 
 	@Column(name = "phone")
-	public Integer getPhone() {
+	public String getPhone() {
 		return this.phone;
 	}
 
-	public void setPhone(Integer phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 

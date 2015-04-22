@@ -20,6 +20,7 @@
 		<property name="myeclipse.connection.profile">
 			BookStoreDriver
 		</property>
+		<property name="hibernate.current_session_context_class">thread</property>
 		<mapping class="entity.User" />
 		<mapping class="entity.BookInfo" />
 		<mapping class="entity.Order" />

@@ -5,6 +5,10 @@
   </head>
   
   <body>
-    <h1>This is my JSP page</h1>
+    <h1>
+    	<a href="register.jsp">register</a>
+    	<br>
+    	<a href="login.jsp">login</a>
+	</h1>
   </body>
 </html>
