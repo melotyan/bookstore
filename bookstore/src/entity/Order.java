@@ -1,11 +1,18 @@
 package entity;
 
 import java.util.Date;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,10 +26,10 @@ public class Order implements java.io.Serializable {
 
 	// Fields
 
-	private OrderId id;
-	private Short amount;
-	private Integer price;
+	private Integer id;
+	private User user;
 	private Date date;
+	private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
 
 	// Constructors
 
@@ -30,43 +37,39 @@ public class Order implements java.io.Serializable {
 	public Order() {
 	}
 
-	/** full constructor */
-	public Order(OrderId id, Short amount, Integer price, Date date) {
-		this.id = id;
-		this.amount = amount;
-		this.price = price;
+	/** minimal constructor */
+	public Order(User user, Date date) {
+		this.user = user;
 		this.date = date;
 	}
 
+	/** full constructor */
+	public Order(User user, Date date, Set<OrderDetail> orderDetails) {
+		this.user = user;
+		this.date = date;
+		this.orderDetails = orderDetails;
+	}
+
 	// Property accessors
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "bookid", column = @Column(name = "bookid", nullable = false)),
-			@AttributeOverride(name = "userid", column = @Column(name = "userid", nullable = false, length = 20)) })
-	public OrderId getId() {
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "Id", unique = true, nullable = false)
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(OrderId id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	@Column(name = "amount", nullable = false)
-	public Short getAmount() {
-		return this.amount;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "userId", nullable = false)
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setAmount(Short amount) {
-		this.amount = amount;
-	}
-
-	@Column(name = "price", nullable = false)
-	public Integer getPrice() {
-		return this.price;
-	}
-
-	public void setPrice(Integer price) {
-		this.price = price;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -77,6 +80,15 @@ public class Order implements java.io.Serializable {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order")
+	public Set<OrderDetail> getOrderDetails() {
+		return this.orderDetails;
+	}
+
+	public void setOrderDetails(Set<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 
 }

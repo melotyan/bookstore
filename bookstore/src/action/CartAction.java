@@ -22,6 +22,7 @@ public class CartAction extends ActionSupport {
 	private CartService cartService;
 	private BookService bookService;
 	private UserService userService;
+	private List<Cart> list;
 	
 	public Integer getBookId() {
 		return bookId;
@@ -82,6 +83,17 @@ public class CartAction extends ActionSupport {
 		this.userService = userService;
 	}
 	
+	
+	public List<Cart> getList() {
+		return list;
+	}
+
+
+	public void setList(List<Cart> list) {
+		this.list = list;
+	}
+
+
 	public String addToCart() {//int bookId, String userId, Short amount
 		Book book = bookService.get(Book.class, bookId);
 		User user = userService.get(User.class, userId);
@@ -117,8 +129,14 @@ public class CartAction extends ActionSupport {
 		cart.setAmount((short) (amount + cart.getAmount()));
 		cartService.update(cart);
 	}
-//	
-//	public List<Cart> viewCart(String userId) {
-//		return cartService.get(userId);
-//	}
+	
+	public String viewCart() {
+		String sql = "select * from cart where userid=" + userId;
+		list = cartService.findBySql(Cart.class, sql);
+		return SUCCESS;
+	}
+	
+	public String payAllOfCart() {
+		
+	}
 }

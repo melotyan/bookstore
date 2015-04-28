@@ -18,9 +18,18 @@
     </package>
     
     <package name="book" namespace="/" extends="struts-default">
-    	<action name="listBooksAction" class="listBooksAction" method="addToCart">
+    	<action name="listBooksAction" class="listBooksAction" method="listBooks">
     		<result name="success">/book.jsp</result>
     		<result name="error">/error.jsp</result>
+    	</action>
+    	<action name="viewBookDetailAction" class="viewBookDetailAction" method="viewBookDetail">
+    		<result name="success">/bookDetail.jsp</result>
+    	</action>
+    </package>
+    
+    <package name="cart" namespace="/" extends="struts-default">
+    	<action name="viewCartAction" class="viewCartAction" method="viewCart">
+    		<result name="success">/cart.jsp</result>
     	</action>
     </package>
 </struts>    

@@ -2,23 +2,21 @@ package action;
 
 
 
-import java.util.Date;
 import java.util.List;
 
+import service.BookInfoService;
 import service.BookService;
-import service.CartService;
-import service.UserService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import entity.Book;
-import entity.Cart;
-import entity.CartId;
-import entity.User;
+import entity.BookInfo;
 
 public class BookAction extends ActionSupport {
 	private Integer bookId;
 	private BookService bookService;
+	private BookInfoService bookInfoService;
+	private List list;
 	
 	public Integer getBookId() {
 		return bookId;
@@ -38,8 +36,36 @@ public class BookAction extends ActionSupport {
 		this.bookService = bookService;
 	}
 
-	public List<Book> listBooks() {
-		return bookService.findAll(Book.class);
+
+
+	public BookInfoService getBookInfoService() {
+		return bookInfoService;
+	}
+
+
+	public void setBookInfoService(BookInfoService bookInfoService) {
+		this.bookInfoService = bookInfoService;
+	}
+
+
+	public List getList() {
+		return list;
+	}
+
+
+	public void setList(List list) {
+		this.list = list;
+	}
+
+
+	public String listBooks() {
+		list = bookService.findAll(Book.class);
+		return SUCCESS;
+	}
+	
+	public String viewBookDetail() {
+		list = bookInfoService.findAll(BookInfo.class);
+		return SUCCESS;
 	}
 
 }

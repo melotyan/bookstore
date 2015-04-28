@@ -25,8 +25,10 @@ public class Book implements java.io.Serializable {
 	private Short num;
 	private Short primaryprice;
 	private Short newprice;
+	private String image;
 	private Set<Cart> carts = new HashSet<Cart>(0);
 	private Set<BookInfo> bookInfos = new HashSet<BookInfo>(0);
+	private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
 
 	// Constructors
 
@@ -42,13 +44,16 @@ public class Book implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Book(Short num, Short primaryprice, Short newprice, Set<Cart> carts,
-			Set<BookInfo> bookInfos) {
+	public Book(Short num, Short primaryprice, Short newprice, String image,
+			Set<Cart> carts, Set<BookInfo> bookInfos,
+			Set<OrderDetail> orderDetails) {
 		this.num = num;
 		this.primaryprice = primaryprice;
 		this.newprice = newprice;
+		this.image = image;
 		this.carts = carts;
 		this.bookInfos = bookInfos;
+		this.orderDetails = orderDetails;
 	}
 
 	// Property accessors
@@ -90,6 +95,15 @@ public class Book implements java.io.Serializable {
 		this.newprice = newprice;
 	}
 
+	@Column(name = "image")
+	public String getImage() {
+		return this.image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "book")
 	public Set<Cart> getCarts() {
 		return this.carts;
@@ -106,6 +120,15 @@ public class Book implements java.io.Serializable {
 
 	public void setBookInfos(Set<BookInfo> bookInfos) {
 		this.bookInfos = bookInfos;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "book")
+	public Set<OrderDetail> getOrderDetails() {
+		return this.orderDetails;
+	}
+
+	public void setOrderDetails(Set<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 
 }

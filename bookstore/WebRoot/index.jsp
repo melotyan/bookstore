@@ -9,6 +9,10 @@
     	<a href="register.jsp">register</a>
     	<br>
     	<a href="login.jsp">login</a>
+    	<br>
+    	<form action="listBooksAction">
+    		<input type="submit" value="listbook"/>
+    	</form>
 	</h1>
   </body>
 </html>

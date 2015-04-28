@@ -28,6 +28,7 @@ public class BookInfo implements java.io.Serializable {
 	private String author;
 	private String publishhouse;
 	private Date publishdate;
+	private String image;
 
 	// Constructors
 
@@ -35,7 +36,7 @@ public class BookInfo implements java.io.Serializable {
 	public BookInfo() {
 	}
 
-	/** full constructor */
+	/** minimal constructor */
 	public BookInfo(Book book, String class_, String author,
 			String publishhouse, Date publishdate) {
 		this.book = book;
@@ -43,6 +44,17 @@ public class BookInfo implements java.io.Serializable {
 		this.author = author;
 		this.publishhouse = publishhouse;
 		this.publishdate = publishdate;
+	}
+
+	/** full constructor */
+	public BookInfo(Book book, String class_, String author,
+			String publishhouse, Date publishdate, String image) {
+		this.book = book;
+		this.class_ = class_;
+		this.author = author;
+		this.publishhouse = publishhouse;
+		this.publishdate = publishdate;
+		this.image = image;
 	}
 
 	// Property accessors
@@ -102,6 +114,15 @@ public class BookInfo implements java.io.Serializable {
 
 	public void setPublishdate(Date publishdate) {
 		this.publishdate = publishdate;
+	}
+
+	@Column(name = "image")
+	public String getImage() {
+		return this.image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 }

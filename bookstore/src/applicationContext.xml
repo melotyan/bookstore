@@ -76,6 +76,12 @@
 	<bean name="bookService" class="service.BookService">
 		<property name="bookDao" ref="bookDao"/>
 	</bean>
+	<bean name="cartService" class="service.CartService">
+		<property name="cartDao" ref="cartDao"/>
+	</bean>
+	<bean name="bookInfoService" class="service.BookInfoService">
+		<property name="bookInfoDao" ref="bookInfoDao"/>
+	</bean>
 	
 	<!-- action注入 -->
 	<bean name="registerAction" class="action.UserAction">
@@ -86,6 +92,12 @@
 	</bean>
 	<bean name="listBooksAction" class="action.BookAction">
 		<property name="bookService" ref="bookService"/>
+	</bean>
+	<bean name="viewBookDetailAction" class="action.BookAction">
+		<property name="bookInfoService" ref="bookInfoService"/>
+	</bean>
+	<bean name="viewCartAction" class="action.CartAction">
+		<property name="cartService" ref="cartService"/>
 	</bean>
 	
 	

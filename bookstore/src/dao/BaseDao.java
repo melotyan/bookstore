@@ -12,7 +12,6 @@ public class BaseDao<T extends Serializable> {
 	@SuppressWarnings("rawtypes")
 	private Class entityClass;
 
-	
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
@@ -60,7 +59,7 @@ public class BaseDao<T extends Serializable> {
 		return t;
 	}
 
-	public T get(Class c, Serializable id) {
+	public T get(Class<T> c, Serializable id) {
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 		T t = (T) session.get(c, id);
@@ -68,13 +67,22 @@ public class BaseDao<T extends Serializable> {
 		return t;
 	}
 
-	public List<T> findAll(Class c) throws Exception {
+	public List<T> findAll(Class<T> c) throws Exception {
 		List<T> list = null;
-		String str =  "from " + c.getSimpleName();
+		String str = "from " + c.getSimpleName();
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 		Query query = session.createQuery(str);
 		list = query.list();
+		session.getTransaction().commit();
+
+		return list;
+	}
+
+	public List<T> findBySql(Class<T> c, String sql) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createSQLQuery(sql).addEntity(c);
+		List<T> list = query.list();
 		session.getTransaction().commit();
 
 		return list;
