@@ -8,32 +8,31 @@ import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 
-import service.BookInfoService;
 import service.BookService;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.sun.jmx.snmp.Timestamp;
 
 import entity.Book;
-import entity.BookInfo;
 
 public class BookAction extends ActionSupport {
 	private File file;
+	private String fileType;
 	private Integer bookId;
 	private String name;
 	private Short num;
 	private Short primaryprice;
 	private Short newprice;
-	private String image;
 	private String class_;
 	private String author;
 	private String publishhouse;
 	private Date publishdate;
+	private String image;
 	private String description;
 	private BookService bookService;
-	private BookInfoService bookInfoService;
 	private List list;
 
 	public File getFile() {
@@ -42,6 +41,14 @@ public class BookAction extends ActionSupport {
 
 	public void setFile(File file) {
 		this.file = file;
+	}
+
+	public String getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
 	}
 
 	public Integer getBookId() {
@@ -58,14 +65,6 @@ public class BookAction extends ActionSupport {
 
 	public void setBookService(BookService bookService) {
 		this.bookService = bookService;
-	}
-
-	public BookInfoService getBookInfoService() {
-		return bookInfoService;
-	}
-
-	public void setBookInfoService(BookInfoService bookInfoService) {
-		this.bookInfoService = bookInfoService;
 	}
 
 	public List getList() {
@@ -108,14 +107,6 @@ public class BookAction extends ActionSupport {
 		this.newprice = newprice;
 	}
 
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
 	public String getClass_() {
 		return class_;
 	}
@@ -156,39 +147,59 @@ public class BookAction extends ActionSupport {
 		this.description = description;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public String listBooks() {
 		list = bookService.findAll(Book.class);
 		return SUCCESS;
 	}
 
 	public String viewBookDetail() {
-		list = bookInfoService.findAll(BookInfo.class);
+		list = bookService.findAll(Book.class);
 		return SUCCESS;
 	}
 
 	public String upload() throws Exception {
-		System.out.println("fjfjjf");
-		String path = ServletActionContext.getServletContext().getRealPath(
+		String realpath = ServletActionContext.getServletContext().getRealPath(
 				"/upload");
-		InputStream is = new FileInputStream(file);
-		File destFile = new File(path, file.getName()
-				+ new Timestamp().getDateTime());
-		OutputStream os = new FileOutputStream(destFile);
-		byte[] buffer = new byte[400];
-		int length = 0;
-		while ((length = is.read(buffer)) > 0) {
-			os.write(buffer, 0, length);
+		File dir = new File(realpath);
+		if (!dir.exists()) {
+			dir.mkdir();
 		}
-		is.close();
-		os.close();
+		if (fileType.equals("jpeg")) {
+			fileType = ".jpg";
+		} else if (fileType.equals("png")) {
+			fileType = ".png";
+		} else if (fileType.equals("gif")) {
+			fileType = ".gif";
+		}
+		String fileName = new Timestamp().getDateTime() + fileType;
+		FileUtils.copyFile(file, new File(dir, fileName));
+//		//
+//		String imgpath = "upload/";
+//		String path = ServletActionContext.getServletContext().getRealPath("/");
+//		System.out.println(path);
+//		InputStream is = new FileInputStream(file);
+//		File destFile = new File(path + imgpath, new Timestamp().getDateTime());
+//		OutputStream os = new FileOutputStream(destFile);
+//		byte[] buffer = new byte[400];
+//		int length = 0;
+//		while ((length = is.read(buffer)) > 0) {
+//			os.write(buffer, 0, length);
+//		}
+//		is.close();
+//		os.close();
 
-		Book book = new Book(name, num, primaryprice, newprice);
-		book.setImage(image);
-		BookInfo bookInfo = new BookInfo(book, class_, author, publishhouse,
-				publishdate, description, image);
+		Book book = new Book(name, class_, author, num, primaryprice, newprice,
+				publishhouse, publishdate, description);
+		book.setImage("upload/" + fileName);
 		bookService.save(book);
-		bookInfoService.save(bookInfo);
 		return SUCCESS;
 	}
-
 }

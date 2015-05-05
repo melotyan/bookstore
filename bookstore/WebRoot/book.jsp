@@ -40,6 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<s:property value="#book.num"/>
     	<s:property value="#book.primaryprice"/>
     	<s:property value="#book.newprice"/>
+    	<img src="upload/#book.image" >
     	<br>
     </s:iterator>
     

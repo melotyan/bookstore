@@ -63,7 +63,6 @@
 	<bean name="baseDao" class="dao.BaseDao"></bean>
 	<bean name="userDao" class="dao.UserDao"></bean>
 	<bean name="bookDao" class="dao.BookDao"></bean>
-	<bean name="bookInfoDao" class="dao.BookInfoDao"></bean>
 	<bean name="cartDao" class="dao.CartDao"></bean>
 	<bean name="orderDao" class="dao.OrderDao"></bean>
 	<bean name="orderDetailDao" class="dao.OrderDetailDao"></bean>
@@ -80,9 +79,6 @@
 	</bean>
 	<bean name="cartService" class="service.CartService">
 		<property name="cartDao" ref="cartDao"/>
-	</bean>
-	<bean name="bookInfoService" class="service.BookInfoService">
-		<property name="bookInfoDao" ref="bookInfoDao"/>
 	</bean>
 	<bean name="orderService" class="service.OrderService">
 		<property name="orderDao" ref="orderDao"/>
@@ -102,7 +98,7 @@
 		<property name="bookService" ref="bookService"/>
 	</bean>
 	<bean name="viewBookDetailAction" class="action.BookAction">
-		<property name="bookInfoService" ref="bookInfoService"/>
+		<property name="bookService" ref="bookService"/>
 	</bean>
 	<bean name="viewCartAction" class="action.CartAction">
 		<property name="cartService" ref="cartService"/>
@@ -119,7 +115,6 @@
 	</bean>
 	<bean name="uploadAction" class="action.BookAction">
 		<property name="bookService" ref="bookService"/>
-		<property name="bookInfoService" ref="bookInfoService"/>
 	</bean>
 	
 </beans>

@@ -1,5 +1,6 @@
 package entity;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -11,6 +12,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Book entity. @author MyEclipse Persistence Tools
@@ -23,12 +26,16 @@ public class Book implements java.io.Serializable {
 
 	private Integer id;
 	private String name;
+	private String class_;
+	private String author;
 	private Short num;
 	private Short primaryprice;
 	private Short newprice;
+	private String publishhouse;
+	private Date publisdate;
 	private String image;
+	private String description;
 	private Set<Cart> carts = new HashSet<Cart>(0);
-	private Set<BookInfo> bookInfos = new HashSet<BookInfo>(0);
 	private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
 
 	// Constructors
@@ -38,24 +45,36 @@ public class Book implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Book(String name, Short num, Short primaryprice, Short newprice) {
+	public Book(String name, String class_, String author, Short num,
+			Short primaryprice, Short newprice, String publishhouse,
+			Date publisdate, String description) {
 		this.name = name;
+		this.class_ = class_;
+		this.author = author;
 		this.num = num;
 		this.primaryprice = primaryprice;
 		this.newprice = newprice;
+		this.publishhouse = publishhouse;
+		this.publisdate = publisdate;
+		this.description = description;
 	}
 
 	/** full constructor */
-	public Book(String name, Short num, Short primaryprice, Short newprice,
-			String image, Set<Cart> carts, Set<BookInfo> bookInfos,
+	public Book(String name, String class_, String author, Short num,
+			Short primaryprice, Short newprice, String publishhouse,
+			Date publisdate, String image, String description, Set<Cart> carts,
 			Set<OrderDetail> orderDetails) {
 		this.name = name;
+		this.class_ = class_;
+		this.author = author;
 		this.num = num;
 		this.primaryprice = primaryprice;
 		this.newprice = newprice;
+		this.publishhouse = publishhouse;
+		this.publisdate = publisdate;
 		this.image = image;
+		this.description = description;
 		this.carts = carts;
-		this.bookInfos = bookInfos;
 		this.orderDetails = orderDetails;
 	}
 
@@ -78,6 +97,24 @@ public class Book implements java.io.Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Column(name = "class", nullable = false, length = 50)
+	public String getClass_() {
+		return this.class_;
+	}
+
+	public void setClass_(String class_) {
+		this.class_ = class_;
+	}
+
+	@Column(name = "author", nullable = false, length = 50)
+	public String getAuthor() {
+		return this.author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 	@Column(name = "num", nullable = false)
@@ -107,6 +144,25 @@ public class Book implements java.io.Serializable {
 		this.newprice = newprice;
 	}
 
+	@Column(name = "publishhouse", nullable = false, length = 50)
+	public String getPublishhouse() {
+		return this.publishhouse;
+	}
+
+	public void setPublishhouse(String publishhouse) {
+		this.publishhouse = publishhouse;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "publisdate", nullable = false, length = 10)
+	public Date getPublisdate() {
+		return this.publisdate;
+	}
+
+	public void setPublisdate(Date publisdate) {
+		this.publisdate = publisdate;
+	}
+
 	@Column(name = "image")
 	public String getImage() {
 		return this.image;
@@ -116,6 +172,15 @@ public class Book implements java.io.Serializable {
 		this.image = image;
 	}
 
+	@Column(name = "description", nullable = false)
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "book")
 	public Set<Cart> getCarts() {
 		return this.carts;
@@ -123,15 +188,6 @@ public class Book implements java.io.Serializable {
 
 	public void setCarts(Set<Cart> carts) {
 		this.carts = carts;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "book")
-	public Set<BookInfo> getBookInfos() {
-		return this.bookInfos;
-	}
-
-	public void setBookInfos(Set<BookInfo> bookInfos) {
-		this.bookInfos = bookInfos;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "book")

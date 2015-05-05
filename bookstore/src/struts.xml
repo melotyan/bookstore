@@ -27,7 +27,7 @@
     	</action>
     	<action name="uploadAction" class="uploadAction" method="upload">
     		<result name="input">/upload.jsp</result>
-    		<result name="success">/index.jsp</result>
+    		<result name="success">/book.jsp</result>
     	</action>
     </package>
     
