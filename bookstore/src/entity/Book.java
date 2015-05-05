@@ -22,6 +22,7 @@ public class Book implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
+	private String name;
 	private Short num;
 	private Short primaryprice;
 	private Short newprice;
@@ -37,16 +38,18 @@ public class Book implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Book(Short num, Short primaryprice, Short newprice) {
+	public Book(String name, Short num, Short primaryprice, Short newprice) {
+		this.name = name;
 		this.num = num;
 		this.primaryprice = primaryprice;
 		this.newprice = newprice;
 	}
 
 	/** full constructor */
-	public Book(Short num, Short primaryprice, Short newprice, String image,
-			Set<Cart> carts, Set<BookInfo> bookInfos,
+	public Book(String name, Short num, Short primaryprice, Short newprice,
+			String image, Set<Cart> carts, Set<BookInfo> bookInfos,
 			Set<OrderDetail> orderDetails) {
+		this.name = name;
 		this.num = num;
 		this.primaryprice = primaryprice;
 		this.newprice = newprice;
@@ -66,6 +69,15 @@ public class Book implements java.io.Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	@Column(name = "name", nullable = false)
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Column(name = "num", nullable = false)

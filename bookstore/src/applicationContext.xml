@@ -111,11 +111,15 @@
 		<property name="orderService" ref="orderService"/>
 		<property name="orderDetailService" ref="orderDetailService"/>
 	</bean>
-	<bean name="payForBooks" class="action.OrderAction">
+	<bean name="payForBooksAction" class="action.OrderAction">
 		<property name="userService" ref="userService"/>
 		<property name="bookService" ref="bookService"/>
 		<property name="orderService" ref="orderService"/>
 		<property name="orderDetailService" ref="orderDetailService"/>
+	</bean>
+	<bean name="uploadAction" class="action.BookAction">
+		<property name="bookService" ref="bookService"/>
+		<property name="bookInfoService" ref="bookInfoService"/>
 	</bean>
 	
 </beans>

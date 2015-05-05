@@ -25,6 +25,10 @@
     	<action name="viewBookDetailAction" class="viewBookDetailAction" method="viewBookDetail">
     		<result name="success">/bookDetail.jsp</result>
     	</action>
+    	<action name="uploadAction" class="uploadAction" method="upload">
+    		<result name="input">/upload.jsp</result>
+    		<result name="success">/index.jsp</result>
+    	</action>
     </package>
     
     <package name="cart" namespace="/" extends="struts-default">
@@ -38,7 +42,7 @@
     
     <package name="order" namespace="/" extends="struts-default">
     	<action name="payForBooksAction" class="payForBooksAction" method="payForBooks">
-    		<result name="success">/record.jsp</result>
+    		<result name="success">/index.jsp</result>
     	</action>
     </package>
 </struts>    

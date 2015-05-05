@@ -10,6 +10,8 @@
     	<br>
     	<a href="login.jsp">login</a>
     	<br>
+    	<a href="upload.jsp">upload</a>
+    	<br>
     	<form action="listBooksAction">
     		<input type="submit" value="listbook"/>
     	</form>

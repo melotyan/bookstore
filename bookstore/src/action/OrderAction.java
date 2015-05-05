@@ -25,8 +25,7 @@ public class OrderAction extends ActionSupport {
 	private OrderDetailService orderDetailService;
 	private UserService userService;
 	private BookService bookService;
-	private List<OrderDetail> orderDetailList; 
-	private List<Order> orderList;
+	private List<OrderDetail> list;
 	
 	public Integer getBookId() {
 		return bookId;
@@ -72,38 +71,36 @@ public class OrderAction extends ActionSupport {
 	public void setBookService(BookService bookService) {
 		this.bookService = bookService;
 	}
-	
-	public List<OrderDetail> getOrderDetailList() {
-		return orderDetailList;
+
+	public List<OrderDetail> getList() {
+		return list;
 	}
-	public void setOrderDetailList(List<OrderDetail> orderDetailList) {
-		this.orderDetailList = orderDetailList;
+	public void setList(List<OrderDetail> list) {
+		this.list = list;
 	}
-	public List<Order> getOrderList() {
-		return orderList;
-	}
-	public void setOrderList(List<Order> orderList) {
-		this.orderList = orderList;
-	}
-	
 	public String payForBooks() {
 		User user = userService.get(userId);
-		Order order = new Order(user, new Date());
+		Order order = new Order(user);
 		orderService.save(order);
 		
 		Book book = bookService.get(bookId);
 		int orderId = order.getId();
 		OrderDetailId orderDetailId = new OrderDetailId(orderId, bookId);
 		int price = book.getNewprice() * amount;
-		OrderDetail orderDetail = new OrderDetail(orderDetailId, order, book, amount, price);
+		OrderDetail orderDetail = new OrderDetail(orderDetailId, order, book, amount, price, new Date());
 		orderDetailService.save(orderDetail);
 		return SUCCESS;
 	}
 	
 	public String viewOrderRecord() {
 		String sql = "select * from order where userid=" + userId;
-		orderList = orderService.findBySql(Order.class, sql);
+		List<Order> orderList = orderService.findBySql(Order.class, sql);
 		
+		for (Order order : orderList) {
+			sql = "select * from order_detail where recordid =" + order.getId() + " order by date desc";
+			list = orderDetailService.findBySql(OrderDetail.class, sql);
+		}
+		return SUCCESS;
 	}
 	
 }

@@ -1,6 +1,5 @@
 package entity;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -14,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * Order entity. @author MyEclipse Persistence Tools
@@ -28,7 +25,6 @@ public class Order implements java.io.Serializable {
 
 	private Integer id;
 	private User user;
-	private Date date;
 	private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
 
 	// Constructors
@@ -38,15 +34,13 @@ public class Order implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Order(User user, Date date) {
+	public Order(User user) {
 		this.user = user;
-		this.date = date;
 	}
 
 	/** full constructor */
-	public Order(User user, Date date, Set<OrderDetail> orderDetails) {
+	public Order(User user, Set<OrderDetail> orderDetails) {
 		this.user = user;
-		this.date = date;
 		this.orderDetails = orderDetails;
 	}
 
@@ -70,16 +64,6 @@ public class Order implements java.io.Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date", nullable = false, length = 10)
-	public Date getDate() {
-		return this.date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order")

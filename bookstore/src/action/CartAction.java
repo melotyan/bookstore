@@ -150,7 +150,7 @@ public class CartAction extends ActionSupport {
 		list = cartService.findBySql(Cart.class, sql);
 		if (list != null) {
 			User user = list.get(0).getUser();
-			Order order = new Order(user, new Date());
+			Order order = new Order(user);
 			orderService.save(order);
 			
 			int recordId = order.getId();
@@ -160,7 +160,7 @@ public class CartAction extends ActionSupport {
 				Short amount = cart.getAmount();
 				int price = cart.getBook().getNewprice() * amount;
 				OrderDetailId orderDetailId = new OrderDetailId(recordId, bookId);
-				OrderDetail orderDetail = new OrderDetail(orderDetailId, order, book, amount, price);
+				OrderDetail orderDetail = new OrderDetail(orderDetailId, order, book, amount, price, new Date());
 				orderDetailService.save(orderDetail);
 				cartService.delete(cart);
 			}
