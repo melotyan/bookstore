@@ -31,5 +31,14 @@
     	<action name="viewCartAction" class="viewCartAction" method="viewCart">
     		<result name="success">/cart.jsp</result>
     	</action>
+    	<action name="payAllOfCartAction" class="payAllOfCartAction" method="payAllOfCart">
+    		<result name="success">/cart.jsp</result>
+    	</action>
+    </package>
+    
+    <package name="order" namespace="/" extends="struts-default">
+    	<action name="payForBooksAction" class="payForBooksAction" method="payForBooks">
+    		<result name="success">/record.jsp</result>
+    	</action>
     </package>
 </struts>    

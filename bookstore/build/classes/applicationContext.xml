@@ -65,6 +65,8 @@
 	<bean name="bookDao" class="dao.BookDao"></bean>
 	<bean name="bookInfoDao" class="dao.BookInfoDao"></bean>
 	<bean name="cartDao" class="dao.CartDao"></bean>
+	<bean name="orderDao" class="dao.OrderDao"></bean>
+	<bean name="orderDetailDao" class="dao.OrderDetailDao"></bean>
 	
 	<!-- service注入 -->
 	<bean name="baseService" class="service.BaseService">
@@ -81,6 +83,12 @@
 	</bean>
 	<bean name="bookInfoService" class="service.BookInfoService">
 		<property name="bookInfoDao" ref="bookInfoDao"/>
+	</bean>
+	<bean name="orderService" class="service.OrderService">
+		<property name="orderDao" ref="orderDao"/>
+	</bean>
+	<bean name="orderDetailService" class="service.OrderDetailService">
+		<property name="orderDetailDao" ref="orderDetailDao"></property>
 	</bean>
 	
 	<!-- action注入 -->
@@ -99,6 +107,15 @@
 	<bean name="viewCartAction" class="action.CartAction">
 		<property name="cartService" ref="cartService"/>
 	</bean>
-	
+	<bean name="payAllOfCart" class="action.CartAction">
+		<property name="orderService" ref="orderService"/>
+		<property name="orderDetailService" ref="orderDetailService"/>
+	</bean>
+	<bean name="payForBooks" class="action.OrderAction">
+		<property name="userService" ref="userService"/>
+		<property name="bookService" ref="bookService"/>
+		<property name="orderService" ref="orderService"/>
+		<property name="orderDetailService" ref="orderDetailService"/>
+	</bean>
 	
 </beans>
