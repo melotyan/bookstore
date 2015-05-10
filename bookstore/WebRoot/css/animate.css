@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+#user_menu{position: fixed; 
+		float: left;
+		right:160px;
+		width:320px;}
+#cart_info{
+	display:none;
+}
+#buy_info{
+	display:none;
+}

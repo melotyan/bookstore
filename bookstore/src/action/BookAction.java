@@ -168,33 +168,14 @@ public class BookAction extends ActionSupport {
 	public String upload() throws Exception {
 		String realpath = ServletActionContext.getServletContext().getRealPath(
 				"/upload");
+		System.out.println(realpath);
+		System.out.println(fileType);
 		File dir = new File(realpath);
 		if (!dir.exists()) {
 			dir.mkdir();
 		}
-		if (fileType.equals("jpeg")) {
-			fileType = ".jpg";
-		} else if (fileType.equals("png")) {
-			fileType = ".png";
-		} else if (fileType.equals("gif")) {
-			fileType = ".gif";
-		}
 		String fileName = new Timestamp().getDateTime() + fileType;
 		FileUtils.copyFile(file, new File(dir, fileName));
-//		//
-//		String imgpath = "upload/";
-//		String path = ServletActionContext.getServletContext().getRealPath("/");
-//		System.out.println(path);
-//		InputStream is = new FileInputStream(file);
-//		File destFile = new File(path + imgpath, new Timestamp().getDateTime());
-//		OutputStream os = new FileOutputStream(destFile);
-//		byte[] buffer = new byte[400];
-//		int length = 0;
-//		while ((length = is.read(buffer)) > 0) {
-//			os.write(buffer, 0, length);
-//		}
-//		is.close();
-//		os.close();
 
 		Book book = new Book(name, class_, author, num, primaryprice, newprice,
 				publishhouse, publishdate, description);

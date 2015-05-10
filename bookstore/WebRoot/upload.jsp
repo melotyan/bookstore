@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -26,7 +26,7 @@
 
 		//检查是否提交了上传文件否弹出提示不需要这一功能的删除即可   
 
-		if (document.all.uploadFile.value == "")
+		if (document.all.file.value == "")
 
 		{
 
@@ -40,12 +40,12 @@
 
 		//截取提交上传文件的扩展名  
 
-		var ext = frmUpload.uploadFile.value.match(/^(.*)(\.)(.{1,8})$/)[3];
+		var ext = frmUpload.file.value.match(/^(.*)(\.)(.{1,8})$/)[3];
 
 		ext = ext.toLowerCase(); //设置允许上传文件的扩展名           
 
-		if (ext == "jpg" || ext == "gif" || ext == "png") {
-
+		if (ext == "jpg" || ext == "gif" || ext == "png" || ext== "tmp") {
+			frmUpload.fileType.value = "." + ext;
 			return true;
 
 		} else {
@@ -109,7 +109,7 @@
 				
 			</tr>
 		</table>
-		<input type="hidden"  value=ext name="fileType"/>
+		<input type="hidden"  name="fileType"/>
 		<input type="submit" value="submit" />
 	</form>
 </body>

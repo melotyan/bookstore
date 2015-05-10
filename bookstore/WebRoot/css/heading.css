@@ -1,0 +1,63 @@
+@CHARSET "UTF-8";
+
+/*header*/
+/*logo*/
+.logo{
+	float:left;
+}
+/*header-right*/
+.header-right{
+	float:right;
+}
+/*---contact-info---*/
+.contact-info{
+	text-align: right;
+	text-transform: capitalize;
+}
+.contact-info ul {
+	margin:0px;
+	padding:0px;
+}
+.contact-info ul li:first-child{
+	font-size:0.825em;
+	color: #777;
+	font-weight:normal;
+}
+.contact-info ul li{
+	font-size: 1em;
+	color: #777;
+	font-weight:400;
+	line-height: 1.8em;
+}
+/*  navigation */
+.menu {
+	margin-top: 1%;
+}
+.nav li:before{
+	vertical-align: middle;
+	margin:10px 4px 0;
+	content:url('../images/arrow.png');
+}
+.nav li.active a{
+	color:#97b538;
+}
+.nav li {
+	padding: 0px 16px;
+	display: inline-block;
+}
+.nav li:nth-child(7){
+	margin-right: 0; 
+	padding-right: 0;
+}
+.nav li a {
+	text-transform: capitalize;
+	line-height: 1.8em;
+	font-weight: 400;
+	color: #777;
+	font-family: 'Cabin Condensed', sans-serif;
+	text-decoration: none;
+	font-size: 1em;
+}
+.nav li a:hover { 
+	color:#97b538;
+}

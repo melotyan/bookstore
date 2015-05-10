@@ -19,11 +19,11 @@
     
     <package name="book" namespace="/" extends="struts-default">
     	<action name="listBooksAction" class="listBooksAction" method="listBooks">
-    		<result name="success">/book.jsp</result>
+    		<result name="success">/index.jsp</result>
     		<result name="error">/error.jsp</result>
     	</action>
     	<action name="viewBookDetailAction" class="viewBookDetailAction" method="viewBookDetail">
-    		<result name="success">/bookDetail.jsp</result>
+    		<result name="success">/details.jsp</result>
     	</action>
     	<action name="uploadAction" class="uploadAction" method="upload">
     		<result name="input">/upload.jsp</result>
