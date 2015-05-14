@@ -70,12 +70,12 @@
 					 <div class="contact-form">
 						<form action="loginAction" method="post">
 							<div>
-						    	<span><label>用户名</label></span>
+						    	<span><label class="contact-label">用户名</label></span>
 						    	<span><input name="userId" type="text" class="textbox"></span>
 						    </div>
 						    <div>
-						    	<span><label>密码</label></span>
-						    	<span><input name="password" type="text" class="textbox"></span>
+						    	<span><label class="contact-label">密码</label></span>
+						    	<span><input name="password" type="password" class="textbox"></span>
 						    </div>
 						    <br/>
 							<input type="submit" value="登陆"/>

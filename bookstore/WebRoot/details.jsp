@@ -32,6 +32,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				generatePagination: false
 			});
 		});
+		function pay() {
+			var userId = "${sessionScope.user.id}";
+			if (!userId) {
+				window.location.href="login.jsp";
+				return;
+			}
+			var num = document.getElementById('num').value;
+			window.location.href="payForBooksAction?userId=" + userId + "&bookId=${book.id}&amount=" + num;
+		}
+		
 	</script>
 </head>
 <body>
@@ -44,7 +54,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						   <div id="products_example">
 							<div id="products">
 								<div class="slides_container">
-									<a href="#" target="_blank"><img src="./images/productslide-1.jpg" alt=" " /></a>
+									<a href="#" target="_blank"><img src="${book.image}" alt=" " /></a>
 									<a href="#" target="_blank"><img src="./images/productslide-2.jpg" alt=" " /></a>
 									<a href="#" target="_blank"><img src="./images/productslide-3.jpg" alt=" " /></a>	
 								</div>
@@ -58,14 +68,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>
 				</div>
 				<div class="desc span_3_of_2">
-					<h2>西方哲学史</h2>				
+					<h2>${book.name }</h2>				
 					<div class="price">
-						<p>作者: <span>罗素.罗兰</span></p>
-						<p>出版社: <span>远方出版社</span></p>	
-						<p>库存量: <span>0</span> 件</p>	
-						<p>价格: <span>$500</span>          原价: <span>$300</span> </p>
+						<p>作者: <span>${book.author }</span></p>
+						<p>出版社: <span>${book.publishhouse }</span></p>	
+						<p>出版日期: <span>${book.publishdate }</span></p>
+						<p>库存量: <span>${book.num }</span> 件</p>	
+						<p>原价: <span>${book.primaryprice }元</span></p>	
+						<p>现价: <span>${book.newprice }元</span></p>
 					</div>
 					<div class="available">
+					<span>数量: </span><input type="text" value="1" id="num"/><p>
 						<p>配送方式</p>
 					<ul>
 						<li>地址:
@@ -80,7 +93,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						</select></li>
 					</ul>
 					</div>
-					<div class="button"><span><a href="#">立即购买</a></span></div>						
+					<div class="button"><span><a href="javascript:void(0);" onclick="pay()">立即购买</a></span></div>						
 					<div class="clear"></div>
 				 <div class="wish-list">
 				 	<ul>
@@ -94,14 +107,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<div class="product_desc">	
 			<div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
 				<ul class="resp-tabs-list">
-					<li class="resp-tab-item resp-tab-active" aria-controls="tab_item-0" role="tab">图书背景</li>
+					<li class="resp-tab-item resp-tab-active" aria-controls="tab_item-0" role="tab">图书简介</li>
 					<li class="resp-tab-item" aria-controls="tab_item-2" role="tab">图书评价</li>
 					<div class="clear"></div>
 				</ul>
 				<div class="resp-tabs-container">
 					<h2 class="resp-accordion resp-tab-active" role="tab" aria-controls="tab_item-0"><span class="resp-arrow"></span>Product Details</h2><div class="product-desc resp-tab-content resp-tab-content-active" style="display:block" aria-labelledby="tab_item-0">
-						<p>罗素（1872-1970），20世纪英国声誉卓著的思想家、哲学家、数学家。罗素一生所涉及的研究领域极其广泛，著述颇丰，其首要建树在数学和逻辑学领域，同时对西方哲学产生了深远影响。</p>
-						<p>此外，他的研究还涉及道德、政治、教育、和平等方面。罗素的主要著作有：《西方哲学史》、《意义与真理的探究》、《数学原理》、《物的分析》、《心的分析》等。</p>
+						<p>${book.description }</p>
+						<p></p>
 						</div>
 			    </div>	
 

@@ -104,6 +104,9 @@ public class CartAction extends ActionSupport {
 	}
 
 	public String addToCart() {// int bookId, String userId, Short amount
+		System.out.println(bookId + " " + userId + " " + amount);
+		if (userId == null)
+			return LOGIN;
 		Book book = bookService.get(Book.class, bookId);
 		User user = userService.get(User.class, userId);
 		if (book != null && user != null) {

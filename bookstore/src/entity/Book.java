@@ -32,7 +32,7 @@ public class Book implements java.io.Serializable {
 	private Short primaryprice;
 	private Short newprice;
 	private String publishhouse;
-	private Date publisdate;
+	private Date publishdate;
 	private String image;
 	private String description;
 	private Set<Cart> carts = new HashSet<Cart>(0);
@@ -47,7 +47,7 @@ public class Book implements java.io.Serializable {
 	/** minimal constructor */
 	public Book(String name, String class_, String author, Short num,
 			Short primaryprice, Short newprice, String publishhouse,
-			Date publisdate, String description) {
+			Date publishdate, String description) {
 		this.name = name;
 		this.class_ = class_;
 		this.author = author;
@@ -55,14 +55,14 @@ public class Book implements java.io.Serializable {
 		this.primaryprice = primaryprice;
 		this.newprice = newprice;
 		this.publishhouse = publishhouse;
-		this.publisdate = publisdate;
+		this.publishdate = publishdate;
 		this.description = description;
 	}
 
 	/** full constructor */
 	public Book(String name, String class_, String author, Short num,
 			Short primaryprice, Short newprice, String publishhouse,
-			Date publisdate, String image, String description, Set<Cart> carts,
+			Date publishdate, String image, String description, Set<Cart> carts,
 			Set<OrderDetail> orderDetails) {
 		this.name = name;
 		this.class_ = class_;
@@ -71,7 +71,7 @@ public class Book implements java.io.Serializable {
 		this.primaryprice = primaryprice;
 		this.newprice = newprice;
 		this.publishhouse = publishhouse;
-		this.publisdate = publisdate;
+		this.publishdate = publishdate;
 		this.image = image;
 		this.description = description;
 		this.carts = carts;
@@ -154,13 +154,13 @@ public class Book implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "publisdate", nullable = false, length = 10)
-	public Date getPublisdate() {
-		return this.publisdate;
+	@Column(name = "publishdate", nullable = false, length = 10)
+	public Date getpublishdate() {
+		return this.publishdate;
 	}
 
-	public void setPublisdate(Date publisdate) {
-		this.publisdate = publisdate;
+	public void setpublishdate(Date publishdate) {
+		this.publishdate = publishdate;
 	}
 
 	@Column(name = "image")
@@ -172,7 +172,7 @@ public class Book implements java.io.Serializable {
 		this.image = image;
 	}
 
-	@Column(name = "description", nullable = false)
+	@Column(name = "description", nullable = false, length = 65535)
 	public String getDescription() {
 		return this.description;
 	}

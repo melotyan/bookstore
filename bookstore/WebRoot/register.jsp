@@ -11,7 +11,7 @@
 <head>
 <base href="<%=basePath%>">
 
-<title>登陆界面</title>
+<title>用户注册</title>
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -70,31 +70,31 @@
 					<div class="contact-form">
 						<form action="registerAction" method="post">
 							<div>
-						    	<span><label>用户名</label></span>
-						    	<span><input name="userId" type="text" class="textbox"></span>
+						    	<label class="contact-label">用户名 </label>
+						    	<input name="userId" type="text" class="textbox required" id="re_name">
 						    </div>
 						    <div>
-						    	<span><label>密码</label></span>
-						    	<span><input name="password" type="text" class="textbox"></span>
+						    	<label class="contact-label">密码</label>
+						    	<input name="password" type="password" class="textbox required" id="re_password">
 						    </div>
 						    <div>
-						    	<span><label>再次输入密码</label></span>
-						    	<span><input name="repassword" type="text" class="textbox"></span>
+						    	<label class="contact-label">再次输入密码</label>
+						    	<input name="repassword" type="password" class="textbox required" id="re_repass">
 						    </div>
 						    <div>
-						    	<span><label>昵称</label></span>
-						    	<span><input name="name" type="text" class="textbox"></span>
+						    	<label class="contact-label">昵称</label>
+						    	<input name="name" type="text" class="textbox required" id="re_nick">
 						    </div>
 						    <div>
-						    	<span><label>电话</label></span>
-						    	<span><input name="phone" type="text" class="textbox"></span>
+						    	<label class="contact-label">电话</label>
+						    	<input name="phone" type="text" class="textbox required" id="re_tele">
 						    </div>
 						    <div>
-						    	<span><label>住址</label></span>
-						    	<span><input name="address" type="text" class="textbox"></span>
+						    	<label class="contact-label">住址</label>
+						    	<input name="address" type="text" class="textbox required" id="re_addr">
 						    </div>
 						    <br/>
-							<input type="submit" value="注册" /> 
+							<input type="submit" value="注册" id="register"/> 
 							<input type="reset" value="重置" class="loginbutton"/>
 						</form>
 					</div>
@@ -103,5 +103,52 @@
 			</div>
 			<br /> <br />
 			<%@include file="/foot.jsp"%>
+			<script>
+			$("form :input.required").each(function(){
+			var $required = $("<strong style='color:#f00;'>*</strong>");
+			$(this).siblings().append($required);
+			});
+			$("form :input").blur(function(){
+				var $sib = $(this).siblings();
+				$sib.find(".formtips").remove();
+				if(this.value == ""){
+					var $errorMsg=$("<strong style='color:#f00;' class='formtips error'>      该项不能为空！</strong>");
+					$sib.append($errorMsg);
+				}
+				else if($(this).is("#re_name")){
+					
+				}
+				else if($(this).is("#re_password")){
+					if(this.value.length<6){
+						var $errorMsg=$("<strong style='color:#f00;' class='formtips error'>      密码不能小于6位！</strong>");
+						$sib.append($errorMsg);
+					}
+				}
+				else if($(this).is("#re_repass")){
+					if($(this).val()!=$("#re_password").val()){
+						var $errorMsg=$("<strong style='color:#f00;' class='formtips error error2'>      与之前密码不一致！</strong>");
+						$sib.append($errorMsg);
+					}
+				}
+				else if($(this).is("#re_tele")){
+					var pattern = /^1[3,5,8,6]\d{9}$/;
+					if(!pattern.test(this.value)){
+						var $errorMsg=$("<strong style='color:#f00;' class='formtips error'>      请输入正确的手机号码！</strong>");
+						$sib.append($errorMsg);
+					}
+				}
+			}).keyup(function(){
+				$(this).triggerHandler("blur");
+			}).focus(function(){
+				$(this).triggerHandler("blur");
+			});
+			$('#register').click(function(){
+				$("form .required:input ").trigger('blur');
+				var numError = $('form .error').length;
+				if(numError){
+					return false;
+				}
+			});
+			</script>
 </body>
 </html>

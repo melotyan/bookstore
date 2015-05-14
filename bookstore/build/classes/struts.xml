@@ -8,12 +8,19 @@
     
     <package name="user" namespace="/" extends="struts-default">
     	<action name="registerAction" class="registerAction" method="register">
-        	<result name="success">/index.jsp</result>
+        	<result name="success">/welcome.jsp</result>
         	<result name="error">/error.jsp</result>
         </action>
         <action name="loginAction" class="loginAction" method="login">
-        	<result name="success">/index.jsp</result>
+        	<result name="success">/welcome.jsp</result>
         	<result name="login">/login.jsp</result>
+        </action>
+        <action name="editUserInfoAction" class="editUserInfoAction" method="editUserInfo">
+        	<result name="success">/user.jsp</result>
+        	<result name="error">/login.jsp</result>
+        </action>
+        <action name="logoutAction" class="logoutAction" method="logout">
+        	<result name="success">/login.jsp</result>
         </action>
     </package>
     
@@ -26,8 +33,12 @@
     		<result name="success">/details.jsp</result>
     	</action>
     	<action name="uploadAction" class="uploadAction" method="upload">
-    		<result name="input">/upload.jsp</result>
-    		<result name="success">/book.jsp</result>
+    		<result name="input">/error.jsp</result>
+    		<result name="success">/upload.jsp</result>
+    	</action>
+    	<action name="editBooksAction" class="editBooksAction" method="editBooks">
+    		<result name="success">/edit.jsp</result>
+    		<result name="error">/error.jsp</result>
     	</action>
     </package>
     
@@ -38,11 +49,17 @@
     	<action name="payAllOfCartAction" class="payAllOfCartAction" method="payAllOfCart">
     		<result name="success">/cart.jsp</result>
     	</action>
+    	<action name="addToCartAction" class="addToCartAction" method="addToCart">
+    		<result name="success">/welcome.jsp</result>
+    		<result name="login">/login.jsp</result>
+    	</action>
     </package>
     
     <package name="order" namespace="/" extends="struts-default">
     	<action name="payForBooksAction" class="payForBooksAction" method="payForBooks">
-    		<result name="success">/index.jsp</result>
+    		<result name="success">/welcome.jsp</result>
+    		<result name="ERROR">/error.jsp</result>
+    		<result name="LOGIN">/login.jsp</result>
     	</action>
     </package>
 </struts>    

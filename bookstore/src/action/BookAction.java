@@ -1,10 +1,7 @@
 package action;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +31,11 @@ public class BookAction extends ActionSupport {
 	private String description;
 	private BookService bookService;
 	private List list;
+	private Book book;
+	
+	public Book getBook() {
+		return book;
+	}
 
 	public File getFile() {
 		return file;
@@ -157,11 +159,12 @@ public class BookAction extends ActionSupport {
 
 	public String listBooks() {
 		list = bookService.findAll(Book.class);
+		Collections.reverse(list);
 		return SUCCESS;
 	}
 
 	public String viewBookDetail() {
-		list = bookService.findAll(Book.class);
+		book = bookService.get(Book.class, bookId);
 		return SUCCESS;
 	}
 
@@ -169,18 +172,36 @@ public class BookAction extends ActionSupport {
 		String realpath = ServletActionContext.getServletContext().getRealPath(
 				"/upload");
 		System.out.println(realpath);
-		System.out.println(fileType);
 		File dir = new File(realpath);
 		if (!dir.exists()) {
 			dir.mkdir();
 		}
 		String fileName = new Timestamp().getDateTime() + fileType;
-		FileUtils.copyFile(file, new File(dir, fileName));
 
 		Book book = new Book(name, class_, author, num, primaryprice, newprice,
 				publishhouse, publishdate, description);
 		book.setImage("upload/" + fileName);
 		bookService.save(book);
+		
+		FileUtils.copyFile(file, new File(dir, fileName));
+		return SUCCESS;
+	}
+	
+	public String editBooks() throws Exception {
+		String realpath = ServletActionContext.getServletContext().getRealPath(
+				"/upload");
+		System.out.println(realpath);
+		File dir = new File(realpath);
+		if (!dir.exists()) {
+			dir.mkdir();
+		}
+		String fileName = new Timestamp().getDateTime() + fileType;
+		Book book = bookService.get(Book.class, bookId);
+		if (book == null)
+			return ERROR;
+		book.setImage("upload/" + fileName);
+		bookService.update(book);
+		FileUtils.copyFile(file, new File(dir, fileName));
 		return SUCCESS;
 	}
 }

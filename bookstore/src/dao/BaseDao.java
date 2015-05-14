@@ -6,11 +6,11 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 public class BaseDao<T extends Serializable> {
 	private SessionFactory sessionFactory;
 	@SuppressWarnings("rawtypes")
-	private Class entityClass;
 
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
@@ -20,21 +20,18 @@ public class BaseDao<T extends Serializable> {
 		this.sessionFactory = sessionFactory;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class getEntityClass() {
-		return entityClass;
-	}
-
-	@SuppressWarnings("rawtypes")
-	public void setEntityClass(Class entityClass) {
-		this.entityClass = entityClass;
-	}
-
 	public void save(T t) {
 		Session session = sessionFactory.getCurrentSession();
-		session.beginTransaction();
-		session.save(t);
-		session.getTransaction().commit();
+		Transaction tx = session.beginTransaction();
+		try {
+			session.save(t);
+			tx.commit();
+		} catch (Exception e) {
+			if (null != tx) { 
+		         tx.rollback();//撤销事务 
+		         e.printStackTrace(); 
+		      } 
+		}
 	}
 
 	public void delete(T t) {
@@ -46,25 +43,32 @@ public class BaseDao<T extends Serializable> {
 
 	public void update(T t) {
 		Session session = sessionFactory.getCurrentSession();
-		session.beginTransaction();
-		session.update(t);
-		session.getTransaction().commit();
-	}
-
-	public T get(Serializable id) {
-		Session session = sessionFactory.getCurrentSession();
-		session.beginTransaction();
-		T t = (T) session.get(getEntityClass(), id);
-		session.getTransaction().commit();
-		return t;
+		Transaction tx = session.beginTransaction();
+		try {
+			session.update(t);
+			tx.commit();
+		} catch (Exception e) {
+			if (null != tx) { 
+		         tx.rollback();//撤销事务 
+		         e.printStackTrace(); 
+		      } 
+		}
 	}
 
 	public T get(Class<T> c, Serializable id) {
 		Session session = sessionFactory.getCurrentSession();
-		session.beginTransaction();
-		T t = (T) session.get(c, id);
-		session.getTransaction().commit();
-		return t;
+		Transaction tx = session.beginTransaction();
+		try {
+			T t = (T) session.get(c, id);
+			tx.commit();
+			return t;
+		} catch (Exception e) {
+			if (null != tx) { 
+		         tx.rollback();//撤销事务 
+		         e.printStackTrace(); 
+		      } 
+		}
+		return null;
 	}
 
 	public List<T> findAll(Class<T> c) throws Exception {
@@ -81,6 +85,7 @@ public class BaseDao<T extends Serializable> {
 
 	public List<T> findBySql(Class<T> c, String sql) {
 		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
 		Query query = session.createSQLQuery(sql).addEntity(c);
 		List<T> list = query.list();
 		session.getTransaction().commit();

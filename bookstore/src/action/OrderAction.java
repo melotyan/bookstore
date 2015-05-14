@@ -79,12 +79,19 @@ public class OrderAction extends ActionSupport {
 		this.list = list;
 	}
 	public String payForBooks() {
-		User user = userService.get(userId);
-		Order order = new Order(user);
-		orderService.save(order);
+		if (userId == null)
+			return LOGIN;
+		User user = userService.get(User.class, userId);
+		System.out.println("user:" + user + " userId:" + userId);
+		orderService.save(new Order(user));
 		
-		Book book = bookService.get(bookId);
+		Book book = bookService.get(Book.class, bookId);
+		if (book.getNum() < amount)
+			return ERROR;
+		List<Order> list = orderService.findBySql(Order.class, "select max(id), userid from [order]");// where userid=" + userId);
+		Order order = list.get(list.size() - 1);
 		int orderId = order.getId();
+		System.out.println("orderId" + orderId);
 		OrderDetailId orderDetailId = new OrderDetailId(orderId, bookId);
 		int price = book.getNewprice() * amount;
 		OrderDetail orderDetail = new OrderDetail(orderDetailId, order, book, amount, price, new Date());

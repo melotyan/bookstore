@@ -1,6 +1,6 @@
 package action;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.struts2.ServletActionContext;
 
 import service.UserService;
 
@@ -94,8 +94,28 @@ public class UserAction extends ActionSupport {
 		User user = userService.get(User.class, userId);
 		if (user == null)
 			return ERROR;
-		if (userId.equals(user.getId()) && password.equals(user.getPassword()))
+		if (userId.equals(user.getId()) && password.equals(user.getPassword())) {
+			ServletActionContext.getRequest().getSession()
+			.setAttribute("user", user);
 			return SUCCESS;
+		}
 		return ERROR;
+	}
+	
+	public String logout() {
+		ServletActionContext.getRequest().getSession().removeAttribute("user");
+		return SUCCESS;
+	}
+	
+	public String editUserInfo() {
+		User user = userService.get(User.class, userId);
+		if (user == null)
+			return ERROR;
+		user.setPassword(password);
+		user.setAddress(address);
+		user.setPhone(phone);
+		user.setName(name);
+		userService.update(user);
+		return SUCCESS;
 	}
 }

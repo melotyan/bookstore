@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -61,9 +62,10 @@
 </head>
 
 <body>
+	<c:if test="${sessionScope.user.id eq 'admin'}">
 	<form name="frmUpload" action="uploadAction" method="post" enctype="multipart/form-data"
-		onsubmit="return validateForm(this)">
-		<table>
+		onsubmit="return validateForm(this)" return false>
+		<table class="contact-form">
 
 			<tr>
 				<td>name</td>
@@ -100,7 +102,7 @@
 			</tr>
 			<tr>
 				<td>description</td>
-				<td><input type="text" name="description" /></td>
+				<td><input type="text" name="description" style="height:200px;width:200px"/></td>
 			</tr>
 
 			<tr>
@@ -112,5 +114,9 @@
 		<input type="hidden"  name="fileType"/>
 		<input type="submit" value="submit" />
 	</form>
+	<a href="edit.jsp">修改图书</a>
+	<br>
+	<a href="listBooksAction">点我回主页</a>
+	</c:if>
 </body>
 </html>

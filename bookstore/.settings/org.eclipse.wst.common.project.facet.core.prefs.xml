@@ -7,4 +7,9 @@
       <attribute name="version-id" value="none_none"/>
     </node>
   </facet>
+  <facet id="web.struts2"/>
+  <facet id="jst.web"/>
+  <facet id="me.hibernate"/>
+  <facet id="wst.jsdt.web"/>
+  <facet id="java"/>
 </root>

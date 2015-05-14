@@ -28,10 +28,6 @@ public class BaseService<T extends Serializable> {
 		baseDao.update(t);
 	}
 	
-	public T get(Serializable id) {
-		return baseDao.get(id);
-	}
-	
 	public T get(Class c, Serializable id) {
 		return baseDao.get(c, id);
 	}

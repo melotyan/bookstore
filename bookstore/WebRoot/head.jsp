@@ -1,23 +1,29 @@
 <%@page pageEncoding="utf-8" contentType="text/html;charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="wrap">
 <div class="header">
 	<div class="logo">
-		<a href="index.jsp"><img src="./images/logo.png" alt=""> </a>
+		<a href="listBooksAction"><img src="./images/logo.png" alt=""> </a>
 	</div>
 	<div class="header-right">
 	<div class="contact-info">
 		<ul>
-			<li>您尚未登录</li>
+			<li>
+			<c:choose>
+				<c:when test="${empty sessionScope.user}">您尚示登录</c:when>
+				<c:otherwise>用户: ${sessionScope.user.id }</c:otherwise>
+			</c:choose>
+			</li>
 			<li>帮助热线:123-45</li>
 		</ul>
 	</div>
 	<div class="menu">
 	 	<ul class="nav">
-        <li class="active"><a href="index.jsp" title="Home">主页</a></li>
-        <li><a href="user.jsp">个人中心</a></li>
+        <li class="active"><a href="listBooksAction?" title="Home">主页</a></li>
+        <c:if test="${!empty sessionScope.user}"><li><a href="user.jsp">个人中心</a></li></c:if>
   		<li><a href="contact.jsp">联系我们</a></li>
-  		<li><a href="upload.jsp">进入后台</a></li>
-  		<li><a href="">注销</a></li>
+  		<c:if test="${sessionScope.user.id eq 'admin'}"><li><a href="upload.jsp">进入后台</a></li></c:if>
+  		<c:if test="${!empty sessionScope.user}"><li><a href="logoutAction">注销</a></li></c:if>
   		<div class="clear"></div>
       </ul>
 	 </div>

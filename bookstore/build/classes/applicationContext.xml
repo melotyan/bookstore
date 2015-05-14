@@ -116,5 +116,16 @@
 	<bean name="uploadAction" class="action.BookAction">
 		<property name="bookService" ref="bookService"/>
 	</bean>
-	
+	<bean name="addToCartAction" class="action.CartAction">
+		<property name="bookService" ref="bookService"/>
+		<property name="userService" ref="userService"/>
+		<property name="cartService" ref="cartService"/>
+	</bean>
+	<bean name="editBooksAction" class="action.BookAction">
+		<property name="bookService" ref="bookService"/>
+	</bean>
+	<bean name="editUserInfoAction" class="action.UserAction">
+	 	<property name="userService" ref="userService"/>
+	 </bean>
+	 <bean name="logoutAction" class="action.UserAction"/>
 </beans>
