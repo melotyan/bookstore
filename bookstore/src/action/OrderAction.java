@@ -1,9 +1,12 @@
 package action;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import service.BookService;
+import service.CartService;
 import service.OrderDetailService;
 import service.OrderService;
 import service.UserService;
@@ -11,6 +14,8 @@ import service.UserService;
 import com.opensymphony.xwork2.ActionSupport;
 
 import entity.Book;
+import entity.Cart;
+import entity.CartId;
 import entity.OrderDetail;
 import entity.OrderDetailId;
 import entity.Torder;
@@ -25,7 +30,7 @@ public class OrderAction extends ActionSupport {
 	private OrderDetailService orderDetailService;
 	private UserService userService;
 	private BookService bookService;
-	private List<OrderDetail> olist;
+	private List<List<OrderDetail>> list;
 	
 	public Integer getBookId() {
 		return bookId;
@@ -71,13 +76,15 @@ public class OrderAction extends ActionSupport {
 	public void setBookService(BookService bookService) {
 		this.bookService = bookService;
 	}
-
-	public List<OrderDetail> getOlist() {
-		return olist;
+	
+	public List<List<OrderDetail>> getList() {
+		return list;
 	}
-	public void setoList(List<OrderDetail> list) {
-		this.olist = list;
+	public void setList(List<List<OrderDetail>> list) {
+		this.list = list;
 	}
+	
+	//从首页购买
 	public String payForBooks() {
 		if (userId == null)
 			return LOGIN;
@@ -95,7 +102,7 @@ public class OrderAction extends ActionSupport {
 		System.out.println("orderId" + orderId);
 		OrderDetailId orderDetailId = new OrderDetailId(orderId, bookId);
 		int price = book.getNewprice() * amount;
-		OrderDetail orderDetail = new OrderDetail(orderDetailId, order, book, amount, price, new Date());
+		OrderDetail orderDetail = new OrderDetail(orderDetailId, order, book, amount, price, new Timestamp(new Date().getTime()));
 		orderDetailService.save(orderDetail);
 		//更新剩余的书的数量
 		book.setNum((short)(book.getNum() - amount));
@@ -104,13 +111,17 @@ public class OrderAction extends ActionSupport {
 	}
 	
 	public String viewOrderRecord() {
-		String sql = "select * from order where userid=" + userId;
+		System.out.println("view order record  userId=" + userId);
+		String sql = "select * from torder where userid=" + userId;
 		List<Torder> orderList = orderService.findBySql(Torder.class, sql);
-		
+		list = new ArrayList<List<OrderDetail>>();
 		for (Torder order : orderList) {
 			sql = "select * from order_detail where recordid =" + order.getId() + " order by date desc";
-			olist = orderDetailService.findBySql(OrderDetail.class, sql);
+			List<OrderDetail> detailList = orderDetailService.findBySql(OrderDetail.class, sql);
+			if (detailList != null && detailList.size() != 0)
+				list.add(detailList);
 		}
+		System.out.println(list);
 		return SUCCESS;
 	}
 	

@@ -116,6 +116,7 @@ public class UserAction extends ActionSupport {
 		user.setPhone(phone);
 		user.setName(name);
 		userService.update(user);
+		ServletActionContext.getRequest().getSession().setAttribute("user", user);
 		return SUCCESS;
 	}
 }

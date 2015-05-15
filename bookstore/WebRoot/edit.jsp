@@ -32,10 +32,11 @@
 		{
 
 			alert("没有选择上传的文件！");
+			return false;
 
 			frmUpload.uploadFile.focus();
 
-			return false;
+			
 
 		}
 

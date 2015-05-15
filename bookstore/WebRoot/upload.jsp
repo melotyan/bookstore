@@ -32,10 +32,10 @@
 		{
 
 			alert("没有选择上传的文件！");
-
+			return false;
 			frmUpload.uploadFile.focus();
 
-			return false;
+			
 
 		}
 
@@ -64,7 +64,7 @@
 <body>
 	<c:if test="${sessionScope.user.id eq 'admin'}">
 	<form name="frmUpload" action="uploadAction" method="post" enctype="multipart/form-data"
-		onsubmit="return validateForm(this)" return false>
+		onsubmit="return validateForm(this)">
 		<table class="contact-form">
 
 			<tr>

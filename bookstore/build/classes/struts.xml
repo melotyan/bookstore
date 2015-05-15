@@ -16,8 +16,8 @@
         	<result name="login">/login.jsp</result>
         </action>
         <action name="editUserInfoAction" class="editUserInfoAction" method="editUserInfo">
-        	<result name="success">/user.jsp</result>
-        	<result name="error">/login.jsp</result>
+        	<result name="success" type="redirect">/user.jsp</result>
+        	<result name="error">/user.jsp</result>
         </action>
         <action name="logoutAction" class="logoutAction" method="logout">
         	<result name="success">/login.jsp</result>
@@ -47,22 +47,34 @@
     
     <package name="cart" namespace="/" extends="struts-default">
     	<action name="viewCartAction" class="viewCartAction" method="viewCart">
-    		<result name="success">/user.jsp</result>
+    		<result name="success">/cart.jsp</result>
     	</action>
     	<action name="payAllOfCartAction" class="payAllOfCartAction" method="payAllOfCart">
-    		<result name="success">/cart.jsp</result>
+    		<result name="success" type="redirect">/user.jsp</result>
     	</action>
     	<action name="addToCartAction" class="addToCartAction" method="addToCart">
     		<result name="success">/welcome.jsp</result>
     		<result name="login">/login.jsp</result>
     	</action>
+    	<action name="deleteFromCartAction" class="deleteFromCartAction" method="deleteFromCart">
+    		<result name="success" type="redirect">/user.jsp</result>
+    	</action>
+    	<action name="updateCartAction" class="updateCartAction" method="updateCart">
+    		<result name="success" type="redirect">/user.jsp</result>
+    	</action>
     </package>
     
     <package name="order" namespace="/" extends="struts-default">
     	<action name="payForBooksAction" class="payForBooksAction" method="payForBooks">
-    		<result name="success">/welcome.jsp</result>
-    		<result name="ERROR">/error.jsp</result>
-    		<result name="LOGIN">/login.jsp</result>
+    		<result name="success" type="redirect">/user.jsp</result>
+    		<result name="error">/error.jsp</result>
+    		<result name="login">/login.jsp</result>
+    	</action>
+    	<action name="viewOrderRecordAction" class="viewOrderRecordAction" method="viewOrderRecord">
+    		<result name="success">/record.jsp</result>
+    	</action>
+    	<action name="payBookInCartAction" class="payBookInCartAction" method="payBookInCart">
+    		<result name="success" type="redirect">/user.jsp</result>
     	</action>
     </package>
 </struts>    

@@ -36,9 +36,14 @@ public class BaseDao<T extends Serializable> {
 
 	public void delete(T t) {
 		Session session = sessionFactory.getCurrentSession();
-		session.beginTransaction();
-		session.delete(t);
-		session.getTransaction().commit();
+		Transaction tx = session.beginTransaction();
+		try {
+			session.delete(t);
+			tx.commit();
+		} catch (Exception e) {
+			tx.rollback();
+			e.printStackTrace();
+		}
 	}
 
 	public void update(T t) {
@@ -75,21 +80,34 @@ public class BaseDao<T extends Serializable> {
 		List<T> list = null;
 		String str = "from " + c.getSimpleName();
 		Session session = sessionFactory.getCurrentSession();
-		session.beginTransaction();
-		Query query = session.createQuery(str);
-		list = query.list();
-		session.getTransaction().commit();
-
+		Transaction tx = session.beginTransaction();
+		try {
+			Query query = session.createQuery(str);
+			list = query.list();
+			tx.commit();
+		} catch (Exception e) {
+			if (null != tx) {
+				tx.rollback();
+				e.printStackTrace();
+			}
+		}
 		return list;
 	}
 
 	public List<T> findBySql(Class<T> c, String sql) {
 		Session session = sessionFactory.getCurrentSession();
-		session.beginTransaction();
-		Query query = session.createSQLQuery(sql).addEntity(c);
-		List<T> list = query.list();
-		session.getTransaction().commit();
-
+		Transaction tx = session.beginTransaction();
+		List<T> list = null;
+		try {
+			Query query = session.createSQLQuery(sql).addEntity(c);
+			list = query.list();
+			tx.commit();
+		} catch (Exception e) {
+			if (null != tx) { 
+		         tx.rollback();//³·ÏúÊÂÎñ 
+		         e.printStackTrace(); 
+		      } 
+		}
 		return list;
 	}
 

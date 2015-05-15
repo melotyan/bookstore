@@ -1,6 +1,6 @@
 package entity;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -10,8 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * Cart entity. @author MyEclipse Persistence Tools
@@ -26,7 +24,7 @@ public class Cart implements java.io.Serializable {
 	private Book book;
 	private User user;
 	private Short amount;
-	private Date date;
+	private Timestamp date;
 
 	// Constructors
 
@@ -35,7 +33,7 @@ public class Cart implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Cart(CartId id, Book book, User user, Short amount, Date date) {
+	public Cart(CartId id, Book book, User user, Short amount, Timestamp date) {
 		this.id = id;
 		this.book = book;
 		this.user = user;
@@ -85,13 +83,12 @@ public class Cart implements java.io.Serializable {
 		this.amount = amount;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date", nullable = false, length = 10)
-	public Date getDate() {
+	@Column(name = "date", nullable = false, length = 19)
+	public Timestamp getDate() {
 		return this.date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 

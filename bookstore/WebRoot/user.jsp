@@ -10,6 +10,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <title>用户中心</title>
 <%@page pageEncoding="utf-8" contentType="text/html;charset=utf-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 <link href="./css/style.css" rel="stylesheet" type="text/css"
@@ -21,7 +22,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </script>
 </head>
 <body>
+	<c:if test="${empty sessionScope.user}">
+		<script>
+			window.location.href="listBooksAction";
+		</script>
+	</c:if>
 	<%@include file="/head.jsp"%>
+	<s:action name="viewCartAction?userId=1" executeResult="true"/>
 	<div class="content">
 		<div class="clear"></div>
 		<div class="cnt-main">
@@ -34,7 +41,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="grid">
 				<div id="user_info">
 					<div class="contact-form">
-						<form action="" method="post">
+						<form action="editUserInfoAction" method="post">
 							<div>
 								<label class="contact-label">用户名 </label> <input name="userId"
 									type="text" class="textbox required" id="re_name" value="${sessionScope.user.id}" readonly>
@@ -62,28 +69,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</div>
 				<!-- 购物车 -->
 				<div id="cart_info">
-					<s:iterator value="list" var="cart">
-						<div class="ser-grid-list">
-							<h5>
-								<s:property value="#cart.book.name" />
-							</h5>
-							<img src="${cart.book.image}" alt="">
-							<p>
-								单价: <s:property value="#cart.book.newprice"/> 元
-							</p>
-							<p>
-								数量: <s:property value="#cart.amount"/>
-							</p>
-							<p>
-								总价: "#price" * "#amount"
-							</p>
-							<p>
-								加入购物车的日期: <s:property value="#cart.date"/>
-							<div class="btn top">
-								<a href="details.jsp">立即购买</a>
-							</div>
-						</div>
-					</s:iterator>
+					<s:action var="cartAction" name="viewCartAction" executeResult="true" namespace="/">
+						<s:param name="userId">${sessionScope.user.id}</s:param>
+					</s:action>
 					<div class="ser-grid-list">
 						<h5>西方哲学史</h5>
 						<img src="./images/productslide-2.jpg" alt="">
@@ -100,20 +88,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</div>
 				<!-- 账单信息 -->
 				<div id="buy_info">
-					<s:iterator value="olist" var="order">
-						<div class="ser-grid-list">
-							<h5>
-								<s:property value="#order.book.name" />
-							</h5>
-							<img src="/${order.book.image}" alt="">
-							<p>
-								<s:property value="#order.book.description" />
-							</p>
-							<div class="btn top">
-								<a href="details.jsp">再次购买</a>
-							</div>
-						</div>
-					</s:iterator>
+					<s:action name="viewOrderRecordAction" executeResult="true" namespace="/">
+						<s:param name="userId">${sessionScope.user.id }</s:param>
+					</s:action>
 					<div class="ser-grid-list">
 						<h5>西方哲学史2</h5>
 						<img src="./images/productslide-2.jpg" alt="">
@@ -148,8 +125,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="text1-nav">
 				<ul id="ul_menu">
 					<li><a id="u_ui" href="">个人信息</a></li>
-					<li><a id="u_sp" href="viewCartAction?userId=${sessionScope.user.id}">购物车</a></li>
-					<li><a id="u_bc" href="viewOrderRecord?userId=${sessionScope.user.id}">购买记录</a></li>
+					<li><a id="u_sp" href="">购物车</a></li>
+					<li><a id="u_bc" href="">购买记录</a></li>
 				</ul>
 			</div>
 		</div>
