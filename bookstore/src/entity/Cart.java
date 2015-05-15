@@ -56,7 +56,7 @@ public class Cart implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "bookid", nullable = false, insertable = false, updatable = false)
 	public Book getBook() {
 		return this.book;
@@ -66,7 +66,7 @@ public class Cart implements java.io.Serializable {
 		this.book = book;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userid", nullable = false, insertable = false, updatable = false)
 	public User getUser() {
 		return this.user;

@@ -11,7 +11,20 @@
 	</script>
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <!--<link href='http://fonts.googleapis.com/css?family=Cabin+Condensed' rel='stylesheet' type='text/css'>-->
-
+<script>
+	function addToCart() {
+		var userId = "${sessionScope.user.id}";
+		if (!userId) {
+			window.location.href="login.jsp";
+			
+			//exit(0);
+			return false;
+		}
+		//var bookId = document.getElementsByName("bookId");
+		//window.location.href="addToCartAction?bookId=" + bookId + "&userId=" + userId + "&amount=1";
+		//"addToCartAction?bookId=${book.id}&userId=${sessionScope.user.id}&amount=1"
+	}
+</script>
 </head>
 <body>
 	<%@include file="/head.jsp"%>
@@ -23,18 +36,18 @@
 				</div>
 				<div class="text1-nav">
 					<ul>
-						<li><a href="">古典文学</a></li>
-						<li><a href="">人类历史</a></li>
-						<li><a href="">社会哲学</a></li>
-						<li><a href="">人与自然</a></li>
-						<li><a href="">世界地理</a></li>
-						<li><a href="">语言精品</a></li>
-						<li><a href="">科学技术</a></li>
-						<li><a href="">医学大全</a></li>
-						<li><a href="">宇宙探秘</a></li>
-						<li><a href="">悬疑推理</a></li>
-						<li><a href="">世界名著</a></li>
-						<li><a href="">计算机科学</a></li>
+						<li><a href="listBooksByClassAction?class_=1">古典文学</a></li>
+						<li><a href="listBooksByClassAction?class_=2">人类历史</a></li>
+						<li><a href="listBooksByClassAction?class_=3">社会哲学</a></li>
+						<li><a href="listBooksByClassAction?class_=4">人与自然</a></li>
+						<li><a href="listBooksByClassAction?class_=5">世界地理</a></li>
+						<li><a href="listBooksByClassAction?class_=6">语言精品</a></li>
+						<li><a href="listBooksByClassAction?class_=7">科学技术</a></li>
+						<li><a href="listBooksByClassAction?class_=8">医学大全</a></li>
+						<li><a href="listBooksByClassAction?class_=9">宇宙探秘</a></li>
+						<li><a href="listBooksByClassAction?class_=10">悬疑推理</a></li>
+						<li><a href="listBooksByClassAction?class_=11">世界名著</a></li>
+						<li><a href="listBooksByClassAction?class_=12">计算机科学</a></li>
 					</ul>
 				</div>
 			</div>
@@ -74,6 +87,7 @@
 			<div class="cnt-main btm" id="select_group">
 				<div class="section group" id="select_content">
 					<s:iterator value="list" var="book">
+						<input type="hidden" name="bookId" value="${book.id }"/>
 						<div class="grid_1_of_3 images_1_of_3">
 							<a href="viewBookDetailAction?bookId=${book.id}"><img title="<s:property value="#book.description"/>" class="tool_tips" src="<s:property value="#book.image"/>" alt="<s:property value="#book.image"/>" /></a> <a
 								href="viewBookDetailAction?bookId=${book.id}"><h3>
@@ -83,7 +97,7 @@
 								<span class="price left"><sup><s:property
 											value="#book.newprice" />元</sup><sub></sub></span>
 								<div class="btn top-right right">
-									<a href="addToCartAction?bookId=${book.id}&userId=${sessionScope.user.id}&amount=1">增加到购物车</a>
+									<a href="addToCartAction?bookId=${book.id}&userId=${sessionScope.user.id}&amount=1" onclick="return addToCart()">增加到购物车</a>
 								</div>
 								
 								<div class="clear"></div>

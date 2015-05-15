@@ -11,9 +11,9 @@ import service.UserService;
 import com.opensymphony.xwork2.ActionSupport;
 
 import entity.Book;
-import entity.Order;
 import entity.OrderDetail;
 import entity.OrderDetailId;
+import entity.Torder;
 import entity.User;
 
 
@@ -25,7 +25,7 @@ public class OrderAction extends ActionSupport {
 	private OrderDetailService orderDetailService;
 	private UserService userService;
 	private BookService bookService;
-	private List<OrderDetail> list;
+	private List<OrderDetail> olist;
 	
 	public Integer getBookId() {
 		return bookId;
@@ -72,40 +72,44 @@ public class OrderAction extends ActionSupport {
 		this.bookService = bookService;
 	}
 
-	public List<OrderDetail> getList() {
-		return list;
+	public List<OrderDetail> getOlist() {
+		return olist;
 	}
-	public void setList(List<OrderDetail> list) {
-		this.list = list;
+	public void setoList(List<OrderDetail> list) {
+		this.olist = list;
 	}
 	public String payForBooks() {
 		if (userId == null)
 			return LOGIN;
 		User user = userService.get(User.class, userId);
 		System.out.println("user:" + user + " userId:" + userId);
-		orderService.save(new Order(user));
+		orderService.save(new Torder(user));
 		
 		Book book = bookService.get(Book.class, bookId);
 		if (book.getNum() < amount)
 			return ERROR;
-		List<Order> list = orderService.findBySql(Order.class, "select max(id), userid from [order]");// where userid=" + userId);
-		Order order = list.get(list.size() - 1);
+		String sql = "select * from (select * from torder where userid=" + userId + " order by id desc limit 1) as t";
+		List<Torder> list = orderService.findBySql(Torder.class, sql);
+		Torder order = list.get(0);
 		int orderId = order.getId();
 		System.out.println("orderId" + orderId);
 		OrderDetailId orderDetailId = new OrderDetailId(orderId, bookId);
 		int price = book.getNewprice() * amount;
 		OrderDetail orderDetail = new OrderDetail(orderDetailId, order, book, amount, price, new Date());
 		orderDetailService.save(orderDetail);
+		//更新剩余的书的数量
+		book.setNum((short)(book.getNum() - amount));
+		bookService.update(book);
 		return SUCCESS;
 	}
 	
 	public String viewOrderRecord() {
 		String sql = "select * from order where userid=" + userId;
-		List<Order> orderList = orderService.findBySql(Order.class, sql);
+		List<Torder> orderList = orderService.findBySql(Torder.class, sql);
 		
-		for (Order order : orderList) {
+		for (Torder order : orderList) {
 			sql = "select * from order_detail where recordid =" + order.getId() + " order by date desc";
-			list = orderDetailService.findBySql(OrderDetail.class, sql);
+			olist = orderDetailService.findBySql(OrderDetail.class, sql);
 		}
 		return SUCCESS;
 	}

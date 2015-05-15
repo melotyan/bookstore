@@ -40,11 +40,14 @@
     		<result name="success">/edit.jsp</result>
     		<result name="error">/error.jsp</result>
     	</action>
+    	<action name="listBooksByClassAction" class="listBooksByClassAction" method="listBooksByClass">
+    		<result name="success">/index.jsp</result>
+    	</action>
     </package>
     
     <package name="cart" namespace="/" extends="struts-default">
     	<action name="viewCartAction" class="viewCartAction" method="viewCart">
-    		<result name="success">/cart.jsp</result>
+    		<result name="success">/user.jsp</result>
     	</action>
     	<action name="payAllOfCartAction" class="payAllOfCartAction" method="payAllOfCart">
     		<result name="success">/cart.jsp</result>

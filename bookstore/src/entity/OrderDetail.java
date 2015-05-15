@@ -23,7 +23,7 @@ public class OrderDetail implements java.io.Serializable {
 	// Fields
 
 	private OrderDetailId id;
-	private Order order;
+	private Torder torder;
 	private Book book;
 	private Short amount;
 	private Integer price;
@@ -36,10 +36,10 @@ public class OrderDetail implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public OrderDetail(OrderDetailId id, Order order, Book book, Short amount,
-			Integer price, Date date) {
+	public OrderDetail(OrderDetailId id, Torder torder, Book book,
+			Short amount, Integer price, Date date) {
 		this.id = id;
-		this.order = order;
+		this.torder = torder;
 		this.book = book;
 		this.amount = amount;
 		this.price = price;
@@ -59,17 +59,17 @@ public class OrderDetail implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "recordId", nullable = false, insertable = false, updatable = false)
-	public Order getOrder() {
-		return this.order;
+	public Torder getTorder() {
+		return this.torder;
 	}
 
-	public void setOrder(Order order) {
-		this.order = order;
+	public void setTorder(Torder torder) {
+		this.torder = torder;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "bookid", nullable = false, insertable = false, updatable = false)
 	public Book getBook() {
 		return this.book;

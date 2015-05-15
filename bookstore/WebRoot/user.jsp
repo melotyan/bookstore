@@ -65,12 +65,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<s:iterator value="list" var="cart">
 						<div class="ser-grid-list">
 							<h5>
-								<s:property value="#book.name" />
+								<s:property value="#cart.book.name" />
 							</h5>
-							<img src="/${book.image}" alt="">
+							<img src="${cart.book.image}" alt="">
 							<p>
-								<s:property value="#book.description" />
+								单价: <s:property value="#cart.book.newprice"/> 元
 							</p>
+							<p>
+								数量: <s:property value="#cart.amount"/>
+							</p>
+							<p>
+								总价: "#price" * "#amount"
+							</p>
+							<p>
+								加入购物车的日期: <s:property value="#cart.date"/>
 							<div class="btn top">
 								<a href="details.jsp">立即购买</a>
 							</div>
@@ -92,14 +100,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</div>
 				<!-- 账单信息 -->
 				<div id="buy_info">
-					<s:iterator value="list" var="cart">
+					<s:iterator value="olist" var="order">
 						<div class="ser-grid-list">
 							<h5>
-								<s:property value="#book.name" />
+								<s:property value="#order.book.name" />
 							</h5>
-							<img src="/${book.image}" alt="">
+							<img src="/${order.book.image}" alt="">
 							<p>
-								<s:property value="#book.description" />
+								<s:property value="#order.book.description" />
 							</p>
 							<div class="btn top">
 								<a href="details.jsp">再次购买</a>
@@ -140,8 +148,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="text1-nav">
 				<ul id="ul_menu">
 					<li><a id="u_ui" href="">个人信息</a></li>
-					<li><a id="u_sp" href="">购物车</a></li>
-					<li><a id="u_bc" href="">购买记录</a></li>
+					<li><a id="u_sp" href="viewCartAction?userId=${sessionScope.user.id}">购物车</a></li>
+					<li><a id="u_bc" href="viewOrderRecord?userId=${sessionScope.user.id}">购买记录</a></li>
 				</ul>
 			</div>
 		</div>

@@ -1,9 +1,9 @@
 package service;
 
 import dao.OrderDao;
-import entity.Order;
+import entity.Torder;
 
-public class OrderService extends BaseService<Order> {
+public class OrderService extends BaseService<Torder> {
 	private OrderDao orderDao;
 
 	public OrderService() {

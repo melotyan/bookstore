@@ -1,7 +1,7 @@
 package dao;
 
-import entity.Order;
+import entity.Torder;
 
-public class OrderDao extends BaseDao<Order> {
+public class OrderDao extends BaseDao<Torder> {
 
 }

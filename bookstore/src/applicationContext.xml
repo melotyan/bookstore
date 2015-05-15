@@ -128,4 +128,7 @@
 	 	<property name="userService" ref="userService"/>
 	 </bean>
 	 <bean name="logoutAction" class="action.UserAction"/>
+	 <bean name="listBooksByClassAction" class="action.BookAction">
+	 	<property name="bookService" ref="bookService"/>
+	 </bean>
 </beans>

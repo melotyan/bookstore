@@ -82,6 +82,6 @@
 		<input type="submit" value="submit" />
 	</form>
 	<a href="listBooksAction">点我回主页</a>
-	</c:if>
+	</c:if> 
 </body>
 </html>

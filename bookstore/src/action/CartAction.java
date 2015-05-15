@@ -14,9 +14,9 @@ import com.opensymphony.xwork2.ActionSupport;
 import entity.Book;
 import entity.Cart;
 import entity.CartId;
-import entity.Order;
 import entity.OrderDetail;
 import entity.OrderDetailId;
+import entity.Torder;
 import entity.User;
 
 public class CartAction extends ActionSupport {
@@ -153,7 +153,7 @@ public class CartAction extends ActionSupport {
 		list = cartService.findBySql(Cart.class, sql);
 		if (list != null) {
 			User user = list.get(0).getUser();
-			Order order = new Order(user);
+			Torder order = new Torder(user);
 			orderService.save(order);
 			
 			int recordId = order.getId();

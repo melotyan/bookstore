@@ -163,6 +163,11 @@ public class BookAction extends ActionSupport {
 		return SUCCESS;
 	}
 
+	public String listBooksByClass() {
+		list = bookService.findBySql(Book.class, "select * from book where class=" + class_);
+		return SUCCESS;
+	}
+	
 	public String viewBookDetail() {
 		book = bookService.get(Book.class, bookId);
 		return SUCCESS;

@@ -183,20 +183,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</div>
 	<div class="text1-nav">
 		<ul>
-			<li><a href="">古典文学</a></li>
-			<li><a href="">人类历史</a></li>
-			<li><a href="">社会哲学</a></li>
-			<li><a href="">人与自然</a></li>
-			<li><a href="">世界地理</a></li>
-			<li><a href="">语言精品</a></li>
-			<li><a href="">科学技术</a></li>
-			<li><a href="">医学大全</a></li>
-			<li><a href="">宇宙探秘</a></li>
-			<li><a href="">五年高考</a></li>
-			<li><a href="">悬疑推理</a></li>
-			<li><a href="">世界名著</a></li>
-			<li><a href="">旅游杂志</a></li>
-			<li><a href="">计算机科学</a></li>
+			<li><a href="listBooksByClassAction?class_=1">古典文学</a></li>
+			<li><a href="listBooksByClassAction?class_=2">人类历史</a></li>
+						<li><a href="listBooksByClassAction?class_=3">社会哲学</a></li>
+						<li><a href="listBooksByClassAction?class_=4">人与自然</a></li>
+						<li><a href="listBooksByClassAction?class_=5">世界地理</a></li>
+						<li><a href="listBooksByClassAction?class_=6">语言精品</a></li>
+						<li><a href="listBooksByClassAction?class_=7">科学技术</a></li>
+						<li><a href="listBooksByClassAction?class_=8">医学大全</a></li>
+						<li><a href="listBooksByClassAction?class_=9">宇宙探秘</a></li>
+						<li><a href="listBooksByClassAction?class_=10">悬疑推理</a></li>
+						<li><a href="listBooksByClassAction?class_=11">世界名著</a></li>
+						<li><a href="listBooksByClassAction?class_=12">计算机科学</a></li>
 	    </ul>
 	</div>
 </div>
