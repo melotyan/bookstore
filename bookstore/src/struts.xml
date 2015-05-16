@@ -43,6 +43,9 @@
     	<action name="listBooksByClassAction" class="listBooksByClassAction" method="listBooksByClass">
     		<result name="success">/index.jsp</result>
     	</action>
+    	<action name="searchBookAction" class="searchBookAction" method="searchBook">
+    		<result name="success">/index.jsp</result>
+    	</action>
     </package>
     
     <package name="cart" namespace="/" extends="struts-default">

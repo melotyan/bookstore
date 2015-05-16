@@ -147,9 +147,8 @@ public class CartAction extends ActionSupport {
 
 	public String viewCart() {
 		System.out.println("ViewCart userId=" + userId);
-		String sql = "select * from cart where userid=" + userId;
+		String sql = "select * from cart where userid=" + userId + " order by date";
 		list = cartService.findBySql(Cart.class, sql);
-		System.out.println("list is " + list);
 		return SUCCESS;
 	}
 

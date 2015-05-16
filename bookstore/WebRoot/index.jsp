@@ -16,13 +16,8 @@
 		var userId = "${sessionScope.user.id}";
 		if (!userId) {
 			window.location.href="login.jsp";
-			
-			//exit(0);
 			return false;
 		}
-		//var bookId = document.getElementsByName("bookId");
-		//window.location.href="addToCartAction?bookId=" + bookId + "&userId=" + userId + "&amount=1";
-		//"addToCartAction?bookId=${book.id}&userId=${sessionScope.user.id}&amount=1"
 	}
 </script>
 </head>
@@ -70,20 +65,21 @@
 				</div>
 				<div class="grid">
 					<div class="grid-img">
-						<a href="details.jsp"><img src="./images/productslide-2.jpg" alt="" /></a>
+						<a href="viewBookDetailAction?bookId=106"><img src="./images/productslide-2.jpg" alt="" /></a>
 					</div>
 					<div class="grid-para">
 						<h2>推荐商品</h2>
 						<h3>西方哲学史</h3>
 						<p>该书由罗素.罗兰经过数年对于西方哲学的通读了解，酝酿而成</p>
 						<div class="btn top">
-							<a href="details.jsp">增加到购物车&nbsp;
+							<a href="addToCartAction?bookId=106&userId=${sessionScope.user.id}&amount=1" onclick="return addToCart()">增加到购物车&nbsp;
 							<img src="./images/marker2.png"></a>
 						</div>
 					</div>
 					<div class="clear"></div>
 				</div>
 			</div>
+			
 			<div class="cnt-main btm" id="select_group">
 				<div class="section group" id="select_content">
 					<s:iterator value="list" var="book">
@@ -104,6 +100,7 @@
 							</div>
 						</div>
 					</s:iterator>
+					
 					<div class="grid_1_of_3 images_1_of_3">
 						<a href="details.jsp"><img src="./images/pic4.png" class="tool_tips" alt="" /></a> <a
 							href="details.jsp"><h3>Lorem Ipsum is simply</h3></a>
@@ -204,7 +201,9 @@
 						</div>
 					</div>
 				</div>
+				
 			</div>
+			
 			<br/>
 			<div id="pagebar" align="center">
 				<a href="javascript:showPage(1)" style="color:#f00">1  </a>

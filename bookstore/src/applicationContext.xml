@@ -148,4 +148,7 @@
 	 <bean name="updateCartAction" class="action.CartAction">
 	 	<property name="cartService" ref="cartService"/>
 	 </bean>
+	 <bean name="searchBookAction" class="action.BookAction">
+	 	<property name="bookService" ref="bookService"/>
+	 </bean>
 </beans>

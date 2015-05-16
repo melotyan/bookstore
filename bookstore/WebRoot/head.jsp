@@ -1,5 +1,6 @@
-<%@page pageEncoding="utf-8" contentType="text/html;charset=utf-8"%>
+<%@page pageEncoding="UTF-8" contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <div class="wrap">
 <div class="header">
 	<div class="logo">
@@ -34,8 +35,8 @@
 <div class="hdr-btm-bg"></div>
 <div class="hdr-btm-left">
 	<div class="search">
-	  <form>
-		<input type="text" value="请输入关键字" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'keyword here';}">
+	  <form action="searchBookAction" method="get">
+		<input type="text" name="name" value="请输入关键字" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'keyword here';}">
 		<input type="submit" value="搜索">
 	  </form>
 	</div>
@@ -51,21 +52,20 @@
 			<option>科学技术</option>
 			<option>医学大全</option>
 			<option>宇宙探秘</option>
-			<option>五年高考</option>
 			<option>悬疑推理</option>
 			<option>世界名著</option>
-			<option>旅游杂志</option>
 			<option>计算机科学</option>
 		</select>
 	</div>
 	<div class="txt-right">
-		<h3><a href="">搜索商品</a></h3>
+		<h3><a href="javascript:void(0);" onclick="search()">搜索商品</a></h3>
 	</div>
 	<div class="clear"></div>
 </div>
 </div>
 <script>
-	function personal() {
-		window.location.href="viewOrderRecordAction?userId=${sessionScope.user.id}";
+	function search() {
+		var name=document.getElementByName("name").value;
+		window.location.href="searchBookAction?name=" + name;
 	}
 </script>

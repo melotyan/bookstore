@@ -173,6 +173,14 @@ public class BookAction extends ActionSupport {
 		return SUCCESS;
 	}
 
+	public String searchBook() {
+		name = name.replaceAll("\\s*", "");
+		System.out.println("search book name=" + name);
+		String sql = "select * from book where binary name like '%" + name + "%'";
+		list = bookService.findBySql(Book.class, sql);
+		return SUCCESS;
+	}
+	
 	public String upload() throws Exception {
 		String realpath = ServletActionContext.getServletContext().getRealPath(
 				"/upload");

@@ -72,6 +72,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<s:action var="cartAction" name="viewCartAction" executeResult="true" namespace="/">
 						<s:param name="userId">${sessionScope.user.id}</s:param>
 					</s:action>
+					<!-- 
 					<div class="ser-grid-list">
 						<h5>西方哲学史</h5>
 						<img src="./images/productslide-2.jpg" alt="">
@@ -80,6 +81,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<a href="details.jsp">立即购买</a>
 						</div>
 					</div>
+					-->
 					<br />
 					<div class="clear"></div>
 					<div id="pagebar_2" align="center">
@@ -91,6 +93,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<s:action name="viewOrderRecordAction" executeResult="true" namespace="/">
 						<s:param name="userId">${sessionScope.user.id }</s:param>
 					</s:action>
+					<!-- 
 					<div class="ser-grid-list">
 						<h5>西方哲学史2</h5>
 						<img src="./images/productslide-2.jpg" alt="">
@@ -107,6 +110,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<a href="details.jsp">再次购买</a>
 						</div>
 					</div>
+					-->
 					<br />
 					<div class="clear"></div>
 					<div id="pagebar_3" align="center">

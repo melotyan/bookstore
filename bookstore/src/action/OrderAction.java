@@ -112,7 +112,7 @@ public class OrderAction extends ActionSupport {
 	
 	public String viewOrderRecord() {
 		System.out.println("view order record  userId=" + userId);
-		String sql = "select * from torder where userid=" + userId;
+		String sql = "select * from torder where userid=" + userId + " order by id desc";
 		List<Torder> orderList = orderService.findBySql(Torder.class, sql);
 		list = new ArrayList<List<OrderDetail>>();
 		for (Torder order : orderList) {
@@ -121,7 +121,6 @@ public class OrderAction extends ActionSupport {
 			if (detailList != null && detailList.size() != 0)
 				list.add(detailList);
 		}
-		System.out.println(list);
 		return SUCCESS;
 	}
 	

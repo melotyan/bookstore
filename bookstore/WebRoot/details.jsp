@@ -97,7 +97,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<div class="clear"></div>
 				 <div class="wish-list">
 				 	<ul>
-				 		<li class="wish"><a href="#">增加到购物车</a></li>
+				 		<li class="wish"><a href="javascript:;" onclick="addToCart()">增加到购物车</a></li>
 				 	    <li class="compare"><a href="#">分享给他人</a></li>
 				 	</ul>
 				 </div>
@@ -156,6 +156,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             fit: true   // 100% fit in a container
         });
     });
+    function addToCart() {
+		var userId = "${sessionScope.user.id}";
+		if (!userId) {
+			window.location.href="login.jsp";
+			return false;
+		}
+		var num = document.getElementById("num").value;
+		window.location.href="addToCartAction?userId=${sessionScope.user.id}&bookId=${book.id}&amount=" + num;
+	}
    </script>		
    <div class="content_bottom">
    	<div class="text-h1 top1 btm">
