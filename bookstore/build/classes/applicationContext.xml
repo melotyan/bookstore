@@ -151,4 +151,21 @@
 	 <bean name="searchBookAction" class="action.BookAction">
 	 	<property name="bookService" ref="bookService"/>
 	 </bean>
+	 <!-- 新加的注入 -->
+	 <bean name="viewAllUserAction" class="action.UserAction">
+	 	<property name="userService" ref="userService"></property>
+	 </bean>
+	  <bean name="editUserAdminAction" class="action.UserAction">
+	 	<property name="userService" ref="userService"></property>
+	 </bean>
+	 <bean name="deleteUserAction" class="action.UserAction">
+	 	<property name="userService" ref="userService"></property>
+	 </bean>
+	 <bean name ="viewAllOrderAction" class="action.OrderAction">
+	 	<property name="orderService" ref="orderService"></property>
+	 	<property name="orderDetailService" ref="orderDetailService"></property>
+	 </bean>
+	 <bean name ="viewAllBookAction" class="action.BookAction">
+	 	<property name="bookService" ref="bookService"></property>
+	 </bean>
 </beans>

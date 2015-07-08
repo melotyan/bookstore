@@ -18,6 +18,31 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script src="./js/easyResponsiveTabs.js" type="text/javascript"></script>
 <link href="./css/easy-responsive-tabs.css" rel="stylesheet" type="text/css" media="all"/>
 <link rel="stylesheet" href="./css/global.css">
+<style type="text/css">
+#tinybox {
+		position: absolute;
+		display: none;
+		padding: 10px;
+		background: #ffffff url(image/preload.gif) no-repeat 50% 50%;
+		border: 10px solid #e3e3e3;
+		z-index: 2000;
+	}
+	#tinymask {
+		position: absolute;
+		display: none;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: #000000;
+		z-index: 1500;
+	}
+	#tinycontent {
+		background: #ffffff;
+		font-size: 1.1em;
+	}
+</style>
+<script type="text/javascript" src="js/tinybox.js"></script>
 <script src="./js/slides.min.jquery.js"></script>
 <script>
 		$(function(){
@@ -38,8 +63,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				window.location.href="login.jsp";
 				return;
 			}
+			if ((parseInt($("#span_leave").text())-parseInt($("#num").val()))<0){
+				var tips = "<p>购买失败，存货不足！</p><p>该提示框将在<span style='color:#f00'>3</span>秒钟内消失</p>";
+        		TINY.box.show(tips,0,0,0,0,3);
+        		return;
+			}
 			var num = document.getElementById('num').value;
-			window.location.href="payForBooksAction?userId=" + userId + "&bookId=${book.id}&amount=" + num;
+			$.post("payForBooksAction?userId=" + userId + "&bookId=${book.id}&amount=" + num,
+								function(data) {
+									var txt = parseInt($("#span_leave").text())-parseInt($("#num").val());
+									$("#span_leave").text(txt);
+								 	var tips = "<p>购买成功！请返回购物记录界面查看！</p><p>该提示框将在<span style='color:#f00'>3</span>秒钟内消失</p>";
+        							TINY.box.show(tips,0,0,0,0,3);
+								});
 		}
 		
 	</script>
@@ -73,7 +109,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<p>作者: <span>${book.author }</span></p>
 						<p>出版社: <span>${book.publishhouse }</span></p>	
 						<p>出版日期: <span>${book.publishdate }</span></p>
-						<p>库存量: <span>${book.num }</span> 件</p>	
+						<p>库存量: <span id="span_leave">${book.num }</span> 件</p>	
 						<p>原价: <span>${book.primaryprice }元</span></p>	
 						<p>现价: <span>${book.newprice }元</span></p>
 					</div>
@@ -163,7 +199,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			return false;
 		}
 		var num = document.getElementById("num").value;
-		window.location.href="addToCartAction?userId=${sessionScope.user.id}&bookId=${book.id}&amount=" + num;
+		$.post("addToCartAction?userId=${sessionScope.user.id}&bookId=${book.id}&amount=" + num,
+								function(data) {
+								 	var tips = "<p>成功添加至购物车！</p><p>该提示框将在<span style='color:#f00'>3</span>秒钟内消失</p>";
+        							TINY.box.show(tips,0,0,0,0,3);
+								});
+		
 	}
    </script>		
    <div class="content_bottom">

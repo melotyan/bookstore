@@ -68,28 +68,31 @@
 					<div class="contact-form">
 						<form action="registerAction" method="post">
 							<div>
-						    	<label class="contact-label">用户名 </label>
+						    	<label class="contact-label">用户名<strong style='color:#f00;' class='stron'>*</strong> </label>
 						    	<input name="userId" type="text" class="textbox required" id="re_name">
 						    </div>
 						    <div>
-						    	<label class="contact-label">密码</label>
+						    	<label class="contact-label">密码<strong style='color:#f00;' class='stron'>*</strong></label>
 						    	<input name="password" type="password" class="textbox required" id="re_password">
 						    </div>
 						    <div>
-						    	<label class="contact-label">再次输入密码</label>
+						    	<label class="contact-label">再次输入密码<strong style='color:#f00;' class='stron'>*</strong></label>
 						    	<input name="repassword" type="password" class="textbox required" id="re_repass">
 						    </div>
 						    <div>
-						    	<label class="contact-label">昵称</label>
+						    	<label class="contact-label">昵称<strong style='color:#f00;' class='stron'>*</strong></label>
 						    	<input name="name" type="text" class="textbox required" id="re_nick">
+						    	
 						    </div>
 						    <div>
-						    	<label class="contact-label">电话</label>
+						    	<label class="contact-label">电话<strong style='color:#f00;' class='stron'>*</strong></label>
 						    	<input name="phone" type="text" class="textbox required" id="re_tele">
+						    	
 						    </div>
 						    <div>
-						    	<label class="contact-label">住址</label>
+						    	<label class="contact-label">住址<strong style='color:#f00;' class='stron'>*</strong></label>
 						    	<input name="address" type="text" class="textbox required" id="re_addr">
+						    	
 						    </div>
 						    <br/>
 							<input type="submit" value="注册" id="register"/> 
@@ -102,10 +105,7 @@
 			<br /> <br />
 			<%@include file="/foot.jsp"%>
 			<script>
-			$("form :input.required").each(function(){
-			var $required = $("<strong style='color:#f00;'>*</strong>");
-			$(this).siblings().append($required);
-			});
+
 			$("form :input").blur(function(){
 				var $sib = $(this).siblings();
 				$sib.find(".formtips").remove();
@@ -146,7 +146,33 @@
 				if(numError){
 					return false;
 				}
-			});
+				else{
+							$.ajax({
+								type : "POST",
+								url : "registerAction?userId="
+										+ $("#re_name").val() + "&password="
+										+ $("#re_password").val() + "&name=" 
+										+ $("#re_nick").val() + "&phone="
+										+ $("#re_tele").val() + "&address="
+										+ $("#re_addr").val(),
+								dataType: "html",
+								success : function(data) {
+									
+									var x = $("<div></div>");
+									x.html(data);
+									if(x.find("title").text()=="欢迎界面")
+										window.location.href="welcome.jsp";
+									else{
+										var $sib = $("#re_name").siblings();
+										$sib.find(".formtips").remove();
+										var $errorMsg=$("<strong style='color:#f00;' class='formtips error'>      该用户名已被注册！</strong>");
+										$sib.append($errorMsg);
+									}	
+								}
+							});
+							return false;
+				}
+			});				
 			</script>
 </body>
 </html>

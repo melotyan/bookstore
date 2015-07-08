@@ -1,5 +1,8 @@
 package action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.struts2.ServletActionContext;
 
 import service.UserService;
@@ -87,19 +90,21 @@ public class UserAction extends ActionSupport {
 		user.setPassword(password);
 		user.setPhone(phone);
 		userService.save(user);
+		ServletActionContext.getRequest().getSession()
+		.setAttribute("user", user);
 		return SUCCESS;
 	}
 	
 	public String login() {
 		User user = userService.get(User.class, userId);
 		if (user == null)
-			return ERROR;
+			return LOGIN;
 		if (userId.equals(user.getId()) && password.equals(user.getPassword())) {
 			ServletActionContext.getRequest().getSession()
 			.setAttribute("user", user);
 			return SUCCESS;
 		}
-		return ERROR;
+		return LOGIN;
 	}
 	
 	public String logout() {
@@ -117,6 +122,67 @@ public class UserAction extends ActionSupport {
 		user.setName(name);
 		userService.update(user);
 		ServletActionContext.getRequest().getSession().setAttribute("user", user);
+		return SUCCESS;
+	}
+	private List<User> userlist = new ArrayList<User>();
+	public List<User> getUserlist() {
+		return userlist;
+	}
+
+
+	public void setUserlist(List<User> userlist) {
+		this.userlist = userlist;
+	}
+public String editUserAdmin(){
+		/*String uid=ServletActionContext.getRequest().getParameter("id");
+		String uname = ServletActionContext.getRequest().getParameter("name");
+		String upassword = ServletActionContext.getRequest().getParameter("password");
+		String uaddress = ServletActionContext.getRequest().getParameter("address");
+		String uphone = ServletActionContext.getRequest().getParameter("phone");
+		System.out.println("Delete user from database");
+		User user = userService.get(User.class, uid);
+		if (user == null)
+			return ERROR;
+		user.setPassword(upassword);
+		user.setAddress(uaddress);
+		user.setPhone(uphone);
+		user.setName(uname);
+		userService.update(user);
+		System.out.println("Do action update user...");
+		return SUCCESS;*/
+		User user = userService.get(User.class, userId);
+		if (user == null)
+			return ERROR;
+		user.setPassword(password);
+		user.setAddress(address);
+		user.setPhone(phone);
+		user.setName(name);
+		userService.update(user);
+		System.out.println("Do action update user...");
+		//ServletActionContext.getRequest().getSession().setAttribute("user", user);
+		userlist.clear();
+		viewAllUser();
+		return SUCCESS;
+	}
+	public String viewAllUser(){
+		System.out.println("view all users from database.");
+		String sql = "select * from user order by id desc";
+		List<User> users = userService.findBySql(User.class, sql);
+		userlist.clear();
+		for (User user : users) {
+			if (user != null && user.getName().equals("admin") == false)
+				userlist.add(user);
+		}
+		return SUCCESS;
+	}
+	
+	public String deleteUser(){
+		String id=ServletActionContext.getRequest().getParameter("id");
+		System.out.println("Delete user from database");
+		userService.deleteUser(id);
+		userlist.clear();
+		viewAllUser();
+		//userlist.remove(userService.get(User.class, id));
 		return SUCCESS;
 	}
 }

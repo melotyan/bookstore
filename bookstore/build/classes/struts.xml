@@ -9,11 +9,11 @@
     <package name="user" namespace="/" extends="struts-default">
     	<action name="registerAction" class="registerAction" method="register">
         	<result name="success">/welcome.jsp</result>
-        	<result name="error">/error.jsp</result>
+        	<result name="error" type="redirect">/register.jsp</result>
         </action>
         <action name="loginAction" class="loginAction" method="login">
         	<result name="success">/welcome.jsp</result>
-        	<result name="login">/login.jsp</result>
+        	<result name="login" type="redirect">/login.jsp</result>
         </action>
         <action name="editUserInfoAction" class="editUserInfoAction" method="editUserInfo">
         	<result name="success" type="redirect">/user.jsp</result>
@@ -21,6 +21,15 @@
         </action>
         <action name="logoutAction" class="logoutAction" method="logout">
         	<result name="success">/login.jsp</result>
+        </action>
+        <action name="viewAllUserAction" class="viewAllUserAction" method="viewAllUser">
+        	<result name="success">/adminUser.jsp</result>
+        </action>
+        <action name="deleteUserAction" class="deleteUserAction" method="deleteUser">
+        	<result name="success">/adminUser.jsp</result>
+        </action>
+         <action name="editUserAdminAction" class="editUserAdminAction" method="editUserAdmin">
+        	<result name="success" >/adminUser.jsp</result>
         </action>
     </package>
     
@@ -46,6 +55,10 @@
     	<action name="searchBookAction" class="searchBookAction" method="searchBook">
     		<result name="success">/index.jsp</result>
     	</action>
+    	<action name="viewAllBookAction" class="viewAllBookAction" method="viewAllBook">
+        	<result name="success">/adminBook.jsp</result>
+        </action>
+    	
     </package>
     
     <package name="cart" namespace="/" extends="struts-default">
@@ -78,6 +91,10 @@
     	</action>
     	<action name="payBookInCartAction" class="payBookInCartAction" method="payBookInCart">
     		<result name="success" type="redirect">/user.jsp</result>
+    		<result name="error" type="redirect">/error.jsp</result>
     	</action>
+    	<action name="viewAllOrderAction" class="viewAllOrderAction" method="viewAllOrder">
+        	<result name="success">/adminOrder.jsp</result>
+        </action>
     </package>
 </struts>    

@@ -123,5 +123,18 @@ public class OrderAction extends ActionSupport {
 		}
 		return SUCCESS;
 	}
+	public String viewAllOrder(){
+		System.out.println("view all order record  userId.");
+		String sql = "select * from torder order by id desc";
+		List<Torder> orderList = orderService.findBySql(Torder.class, sql);
+		list = new ArrayList<List<OrderDetail>>();
+		for (Torder order : orderList) {
+			sql = "select * from order_detail where recordid =" + order.getId() + " order by date desc";
+			List<OrderDetail> detailList = orderDetailService.findBySql(OrderDetail.class, sql);
+			if (detailList != null && detailList.size() != 0)
+				list.add(detailList);
+		}
+		return SUCCESS;
+	}
 	
 }

@@ -190,7 +190,7 @@ body {
 		rgba(45, 45, 45, 1) 61% );
 	background: linear-gradient(to bottom, rgba(68, 68, 68, 1) 60%,
 		rgba(45, 45, 45, 1) 61% );
-	filter: progid:DXImageTransform.Microsoft.gradient(   startColorstr='#444444',
+	filter: progid:DXImageTransform.Microsoft.gradient(    startColorstr='#444444',
 		endColorstr='#2d2d2d', GradientType=0 );
 	border-radius: 0.6em;
 	-webkit-border-radius: 0.6em;
@@ -226,7 +226,7 @@ body {
 	background: linear-gradient(to bottom, rgba(208, 208, 208, 1) 0%,
 		rgba(197, 197, 197, 1) 28%, rgba(151, 151, 151, 1) 70%,
 		rgba(129, 129, 129, 1) 100% );
-	filter: progid:DXImageTransform.Microsoft.gradient(   startColorstr='#d0d0d0',
+	filter: progid:DXImageTransform.Microsoft.gradient(    startColorstr='#d0d0d0',
 		endColorstr='#818181', GradientType=0 );
 }
 /*hdr-btm-left*/
@@ -438,7 +438,7 @@ body {
 	background: linear-gradient(to bottom, rgba(198, 198, 198, 1) 0%,
 		rgba(167, 167, 167, 1) 20%, rgba(130, 130, 130, 1) 40%,
 		rgba(87, 87, 87, 1) 70%, rgba(80, 80, 80, 1) 99% );
-	filter: progid:DXImageTransform.Microsoft.gradient(   startColorstr='#c6c6c6',
+	filter: progid:DXImageTransform.Microsoft.gradient(    startColorstr='#c6c6c6',
 		endColorstr='#505050', GradientType=0 );
 }
 
@@ -675,7 +675,7 @@ body {
 		rgba(119, 119, 119, 1) 30%, rgba(102, 102, 102, 1) 71% );
 	background: linear-gradient(to bottom, rgba(136, 136, 136, 1) 0%,
 		rgba(119, 119, 119, 1) 30%, rgba(102, 102, 102, 1) 71% );
-	filter: progid:DXImageTransform.Microsoft.gradient(   startColorstr='#888888',
+	filter: progid:DXImageTransform.Microsoft.gradient(    startColorstr='#888888',
 		endColorstr='#666666', GradientType=0 );
 	border-radius: 0.6em;
 	-webkit-border-radius: 0.6em;
@@ -1037,7 +1037,7 @@ body {
 		rgba(119, 119, 119, 1) 30%, rgba(102, 102, 102, 1) 71% );
 	background: linear-gradient(to bottom, rgba(136, 136, 136, 1) 0%,
 		rgba(119, 119, 119, 1) 30%, rgba(102, 102, 102, 1) 71% );
-	filter: progid:DXImageTransform.Microsoft.gradient(   startColorstr='#888888',
+	filter: progid:DXImageTransform.Microsoft.gradient(    startColorstr='#888888',
 		endColorstr='#666666', GradientType=0 );
 	position: absolute;
 	right: 10px;
@@ -1350,7 +1350,7 @@ body {
 		rgba(119, 119, 119, 1) 30%, rgba(102, 102, 102, 1) 71% );
 	background: linear-gradient(to bottom, rgba(136, 136, 136, 1) 0%,
 		rgba(119, 119, 119, 1) 30%, rgba(102, 102, 102, 1) 71% );
-	filter: progid:DXImageTransform.Microsoft.gradient(   startColorstr='#888888',
+	filter: progid:DXImageTransform.Microsoft.gradient(    startColorstr='#888888',
 		endColorstr='#666666', GradientType=0 );
 	border-radius: 0.6em;
 	-webkit-border-radius: 0.6em;
@@ -1471,7 +1471,7 @@ body {
 		rgba(119, 119, 119, 1) 30%, rgba(102, 102, 102, 1) 71% );
 	background: linear-gradient(to bottom, rgba(136, 136, 136, 1) 0%,
 		rgba(119, 119, 119, 1) 30%, rgba(102, 102, 102, 1) 71% );
-	filter: progid:DXImageTransform.Microsoft.gradient(   startColorstr='#888888',
+	filter: progid:DXImageTransform.Microsoft.gradient(    startColorstr='#888888',
 		endColorstr='#666666', GradientType=0 );
 	border-radius: 0.6em;
 	-webkit-border-radius: 0.6em;
@@ -1526,7 +1526,7 @@ body {
 		rgba(119, 119, 119, 1) 30%, rgba(102, 102, 102, 1) 71% );
 	background: linear-gradient(to bottom, rgba(136, 136, 136, 1) 0%,
 		rgba(119, 119, 119, 1) 30%, rgba(102, 102, 102, 1) 71% );
-	filter: progid:DXImageTransform.Microsoft.gradient(   startColorstr='#888888',
+	filter: progid:DXImageTransform.Microsoft.gradient(    startColorstr='#888888',
 		endColorstr='#666666', GradientType=0 );
 	border-radius: 0.6em;
 	-webkit-border-radius: 0.6em;
@@ -1593,7 +1593,7 @@ body {
 	background: -o-linear-gradient(top, #5e5e5e 0%, #404040 100%);
 	background: -ms-linear-gradient(top, #5e5e5e 0%, #404040 100%);
 	background: linear-gradient(top, #5e5e5e 0%, #404040 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(   startColorstr='#5e5e5e',
+	filter: progid:DXImageTransform.Microsoft.gradient(    startColorstr='#5e5e5e',
 		endColorstr='#404040', GradientType=0 );
 	box-shadow: 1px 1px 0 0 #414141 inset, -1px -1px 0 0 #414141 inset, 0
 		1px 2px -1px rgba(0, 0, 0, 0.15);
@@ -1991,4 +1991,5 @@ body {
 		border-bottom: #000000 solid 1px;
 		background-color: #FF0000;
 	}
+	
 }

@@ -23,7 +23,7 @@
         <li class="active"><a href="listBooksAction?" title="Home">主页</a></li>
         <c:if test="${!empty sessionScope.user}"><li><a href="user.jsp">个人中心</a></li></c:if>
   		<li><a href="contact.jsp">联系我们</a></li>
-  		<c:if test="${sessionScope.user.id eq 'admin'}"><li><a href="upload.jsp">进入后台</a></li></c:if>
+  		<c:if test="${sessionScope.user.id eq 'admin'}"><li><a href="back_management.jsp">进入后台</a></li></c:if>
   		<c:if test="${!empty sessionScope.user}"><li><a href="logoutAction">注销</a></li></c:if>
   		<div class="clear"></div>
       </ul>

@@ -20,5 +20,7 @@ public class UserService extends BaseService<User> {
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
-	
+	public void deleteUser(String id){
+		userDao.deleteById(id);
+	}
 }

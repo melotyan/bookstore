@@ -34,12 +34,35 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<div class="cnt-main">
 			<div class="s_btn">
 				<ul>
-					<li id="user_item"><h2>用户信息</h2></li>
-					<div class="clear"></div>
+					<li id="user_item"><h2>购物车</h2></li>
 				</ul>
+				<div class="clear"></div>
 			</div>
 			<div class="grid">
-				<div id="user_info">
+				
+				<!-- 购物车 -->
+				<div id="cart_info" style="display:block">
+					<s:action var="cartAction" name="viewCartAction" executeResult="true" namespace="/">
+						<s:param name="userId">${sessionScope.user.id}</s:param>
+					</s:action>
+					<br />
+					<div id="pagebar_2" align="center">
+						<a href="javascript:showPage(1)" style="color:#f00">1 </a>
+					</div>
+				</div>
+				<!-- 账单信息 -->
+				<div id="buy_info">
+					<s:action name="viewOrderRecordAction" executeResult="true" namespace="/">
+						<s:param name="userId">${sessionScope.user.id }</s:param>
+					</s:action>
+					<br />
+					<div class="clear"></div>
+					<div id="pagebar_3" align="center">
+						<a href="javascript:showPage(1)" style="color:#f00">1 </a>
+					</div>
+				</div>
+				<!-- 用户信息 -->
+				<div id="user_info" style="display:none">
 					<div class="contact-form">
 						<form action="editUserInfoAction" method="post">
 							<div>
@@ -67,56 +90,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>
 					<div class="clear"></div>
 				</div>
-				<!-- 购物车 -->
-				<div id="cart_info">
-					<s:action var="cartAction" name="viewCartAction" executeResult="true" namespace="/">
-						<s:param name="userId">${sessionScope.user.id}</s:param>
-					</s:action>
-					<!-- 
-					<div class="ser-grid-list">
-						<h5>西方哲学史</h5>
-						<img src="./images/productslide-2.jpg" alt="">
-						<p>这本书很不错的，买买买！</p>
-						<div class="btn top">
-							<a href="details.jsp">立即购买</a>
-						</div>
-					</div>
-					-->
-					<br />
-					<div class="clear"></div>
-					<div id="pagebar_2" align="center">
-						<a href="javascript:showPage(1)" style="color:#f00">1 </a>
-					</div>
-				</div>
-				<!-- 账单信息 -->
-				<div id="buy_info">
-					<s:action name="viewOrderRecordAction" executeResult="true" namespace="/">
-						<s:param name="userId">${sessionScope.user.id }</s:param>
-					</s:action>
-					<!-- 
-					<div class="ser-grid-list">
-						<h5>西方哲学史2</h5>
-						<img src="./images/productslide-2.jpg" alt="">
-						<p>这本书很不错的，买买买！</p>
-						<div class="btn top">
-							<a href="details.jsp">再次购买</a>
-						</div>
-					</div>
-					<div class="ser-grid-list">
-						<h5>西方哲学史3</h5>
-						<img src="./images/productslide-3.jpg" alt="">
-						<p>我跟你讲，这本书，赞！我论斤买</p>
-						<div class="btn top">
-							<a href="details.jsp">再次购买</a>
-						</div>
-					</div>
-					-->
-					<br />
-					<div class="clear"></div>
-					<div id="pagebar_3" align="center">
-						<a href="javascript:showPage(1)" style="color:#f00">1 </a>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -128,38 +101,38 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>
 			<div class="text1-nav">
 				<ul id="ul_menu">
-					<li><a id="u_ui" href="">个人信息</a></li>
 					<li><a id="u_sp" href="">购物车</a></li>
 					<li><a id="u_bc" href="">购买记录</a></li>
+					<li><a id="u_ui" href="">个人信息</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 	<div class="clear"></div>
-	</div>
-	</div>
 	<br />
 	<br />
 	<br />
 	<%@include file="/foot.jsp"%>
 	<script>
-		var $tag = $("#user_item h2")
+
+		var $tag = $("#user_item h2");
 		$("#u_ui").click(function(e) {
 			$(this).addClass("active");
 			$("#u_sp").removeClass("active");
 			$("#u_bc").removeClass("active");
-			$("#cart_info").hide("slow");
-			$("#buy_info").hide("slow");
-			$("#user_info").show("slow");
+			$("#cart_info").hide();
+			$("#buy_info").hide();
+			$("#user_info").show();
+			$tag.html("用户中心");
 			e.preventDefault();
 		});
 		$("#u_sp").click(function(e) {
 			$(this).addClass("selected");
 			$("#u_ui").removeClass("selected");
 			$("#u_bc").removeClass("selected");
-			$("#user_info").hide("slow");
-			$("#buy_info").hide("slow");
-			$("#cart_info").show("slow");
+			$("#user_info").hide();
+			$("#buy_info").hide();
+			$("#cart_info").show();
 			$tag.html("购物车");
 			e.preventDefault();
 		});
@@ -167,14 +140,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			$(this).addClass("selected");
 			$("#u_sp").removeClass("selected");
 			$("#u_ui").removeClass("selected");
-			$("#user_info").hide("slow");
-			$("#cart_info").hide("slow");
-			$("#buy_info").show("slow");
+			$("#user_info").hide();
+			$("#cart_info").hide();
+			$("#buy_info").show();
 			$tag.html("购买记录");
 			e.preventDefault();
 		});
-		var $title_cl = $("ul.nav li:eq(1)");
 		$(document).ready(function() {
+			var $title_cl = $("ul.nav li:eq(1)");
 			$title_cl.addClass("active").siblings().removeClass("active");
 		});
 		$("form :input.required").each(function() {

@@ -21,7 +21,8 @@
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/login.css" rel="stylesheet" type="text/css" media="all" />
 <script src="./js/jquery-1.7.2.min.js" type="text/javascript">
-	</script>
+	
+</script>
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -30,16 +31,16 @@
 
 <body>
 	<%@include file="/head.jsp"%>
-		<div class="main">
-			<div class="sidebar">
+	<div class="main">
+		<div class="sidebar">
 
-				<div class="s-main">
-					<div class="s_hdr1">
-						<h2>种类</h2>
-					</div>
-					<div class="text1-nav">
-						<ul>
-							<li><a href="listBooksByClassAction?class_=1">古典文学</a></li>
+			<div class="s-main">
+				<div class="s_hdr1">
+					<h2>种类</h2>
+				</div>
+				<div class="text1-nav">
+					<ul>
+						<li><a href="listBooksByClassAction?class_=1">古典文学</a></li>
 						<li><a href="listBooksByClassAction?class_=2">人类历史</a></li>
 						<li><a href="listBooksByClassAction?class_=3">社会哲学</a></li>
 						<li><a href="listBooksByClassAction?class_=4">人与自然</a></li>
@@ -51,45 +52,61 @@
 						<li><a href="listBooksByClassAction?class_=10">悬疑推理</a></li>
 						<li><a href="listBooksByClassAction?class_=11">世界名著</a></li>
 						<li><a href="listBooksByClassAction?class_=12">计算机科学</a></li>
-						</ul>
-					</div>
+					</ul>
 				</div>
 			</div>
-			<div class="content">
-				<div class="clear"></div>
-				<div class="cnt-main">
-					<div class="s_btn">
-						<ul>
-							<li><h2>欢迎回来!</h2></li>
-							<div class="clear"></div>
-						</ul>
-					</div>
-					<div class="grid">
-					 <div class="contact-form">
+		</div>
+		<div class="content">
+			<div class="clear"></div>
+			<div class="cnt-main">
+				<div class="s_btn">
+					<ul>
+						<li><h2>欢迎回来!</h2></li>
+						<div class="clear"></div>
+					</ul>
+				</div>
+				<div class="grid">
+					<div class="contact-form">
 						<form action="loginAction" method="post">
 							<div>
-						    	<span><label class="contact-label">用户名</label></span>
-						    	<span><input name="userId" type="text" class="textbox"></span>
-						    </div>
-						    <div>
-						    	<span><label class="contact-label">密码</label></span>
-						    	<span><input name="password" type="password" class="textbox"></span>
-						    </div>
-						    <br/>
-							<input type="submit" value="登陆"/>
-							<input type="reset" value="重置" class="loginbutton"/>
+								<span><label class="contact-label">用户名</label></span> <span><input
+									id="userId" name="userId" type="text" class="textbox"></span>
+							</div>
+							<div>
+								<span><label class="contact-label">密码</label></span> <span><input
+									id="password" name="password" type="password" class="textbox"></span>
+							</div>
+							<br /> <input id="loginbtn" type="submit" value="登陆" /> <input
+								type="reset" value="重置" class="loginbutton" />
 						</form>
-						</div>
-						<div class="clear"></div>
 					</div>
+					<div class="clear"></div>
 				</div>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<%@include file="/foot.jsp"%>
+			</div>
+			<br /> <br /> <br /> <br /> <br /> <br /> <br />
+			<%@include file="/foot.jsp"%>
+			<script>
+				$("#loginbtn").click(
+						function() {
+							$.ajax({
+								type : "POST",
+								url : "loginAction?userId="
+										+ $("#userId").val() + "&password="
+										+ $("#password").val(),
+								dataType: "html",
+								success : function(data) {
+									
+									var x = $("<div></div>");
+									x.html(data);
+									if(x.find("title").text()=="欢迎界面")
+										window.location.href="welcome.jsp";
+									else{
+										alert("失败了，请重新登陆！");
+									}	
+								}
+							});
+							return false;
+						});
+			</script>
 </body>
 </html>

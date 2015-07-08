@@ -1,6 +1,7 @@
 package action;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -159,7 +160,8 @@ public class BookAction extends ActionSupport {
 
 	public String listBooks() {
 		list = bookService.findAll(Book.class);
-		Collections.reverse(list);
+		if (list != null)
+			Collections.reverse(list);
 		return SUCCESS;
 	}
 
@@ -216,5 +218,26 @@ public class BookAction extends ActionSupport {
 		bookService.update(book);
 		FileUtils.copyFile(file, new File(dir, fileName));
 		return SUCCESS;
+	}
+	private List<Book> booklist = new ArrayList<Book>();
+	public List<Book> getBooklist() {
+			return booklist;
+		}
+
+	public void setBooklist(List<Book> booklist) {
+			this.booklist = booklist;
+		}
+	public String viewAllBook(){
+			
+			String sql = "select * from book order by id desc";
+			List<Book> books = bookService.findBySql(Book.class, sql);
+			booklist.clear();
+			for (Book book : books) {
+				if (book != null){
+					booklist.add(book);
+					System.out.println("view all books from database.");
+				}
+			}
+			return SUCCESS;
 	}
 }
